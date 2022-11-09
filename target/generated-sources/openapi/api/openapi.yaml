@@ -1,0 +1,1526 @@
+openapi: 3.0.3
+info:
+  description: "UPS Open Account API enables UPS 3rd Party Vendors to request a UPS\
+    \ Shipper Account. If the UPS Shipper Account request is approved, an UPS Shipper\
+    \ Account Number is generated. The UPS Ready Vendor user should first complete\
+    \ the registration process and get a My UPS ID before requesting a Shipper Account.\
+    \ Addresses are validated for accuracy. The User is expected to provide the primary\
+    \ reason for requesting a Shipper Account and the estimated number of Packages\
+    \ to be shipped."
+  title: UPS Accounts API
+  version: "1.0"
+servers:
+- url: https://wwwcie.ups.com/api/
+security:
+- oauth2: []
+tags:
+- name: Account
+paths:
+  /customers/v1/account:
+    post:
+      description: Request Shipper Accounts
+      operationId: shipper-account-request
+      parameters:
+      - description: Unique Transaction Id
+        explode: false
+        in: header
+        name: x-transaction-id
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Transaction Origin Source
+        explode: false
+        in: header
+        name: x-transaction-source
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Request Options
+        explode: true
+        in: query
+        name: requestOption
+        required: false
+        schema:
+          enum:
+          - "Y"
+          - "N"
+          type: string
+        style: form
+      - description: Sub-version Number if any
+        explode: true
+        in: query
+        name: subVersion
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Customer Context if any
+        explode: false
+        in: header
+        name: x-customer-context
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              json:
+                summary: A sample JSON request
+                value:
+                  endUserInformation:
+                    deviceIdentity: 10.25.2.1
+                    email: test@ups.com
+                    ipAddress: 10.26.1.1
+                  accountCharacteristics:
+                    customerClassification: "01"
+                    customerName:
+                      firstName: John
+                      middleInitial: A.
+                      surname: Smith
+                      suffix: Jr
+                    taxInformation:
+                      taxId: "123456789"
+                    accountReason: "01"
+                    currentCarrier: "31"
+                    email: test@ups.com
+                    myUPSId:
+                      id: XOLTQA1
+                  businessInformation:
+                    industry: "8000"
+                    numberOfEmployees: "06"
+                    shipmentInformation:
+                      type: "01"
+                      noOfPackages: "50"
+                      packageWeight:
+                        unitOfMeasurement: LB
+                    shipperRequirements:
+                    - type: "01"
+                      answer: true
+                      licenseInAllStates: true
+                    - type: "02"
+                      answer: false
+                    - type: "08"
+                      answer: false
+                    importBrokerage:
+                      type: "02"
+                      name: ABC Brokerage
+                  accountVerification:
+                    principalName:
+                      title: CEO
+                      firstName: John
+                      middleInitial: A.
+                      surname: Smith
+                      suffix: Jr
+                    accountInitiator:
+                      firstName: John
+                      middleInitial: A.
+                      surname: Smith
+                      suffixTitle: Jr
+                    documentation:
+                      documentOwnerName:
+                        firstName: John
+                        middleInitial: A.
+                        surname: Smith
+                        suffixTitle: Jr
+                      documentOwnerAddress:
+                        streetAddress:
+                          addressLine1: 2010 Warsaw Road
+                        city: Roswell
+                        stateOrProvinceCode: GA
+                        postalCode: "30076"
+                        countryCode: US
+                    paymentType:
+                      type: Credit Card
+                    commodities:
+                      commodity: "06"
+                  billingContactInformation:
+                    contactName:
+                      firstName: Mary
+                      surname: Jane
+                    attentionName: Billing
+                    businessName: ABC Shipping Company
+                    email: test@ups.com
+                    phone:
+                      phoneNumber: "5555555555"
+                  billingAddress:
+                    streetAddress:
+                      addressLine1: 2010 Warsaw Road
+                      addressLine2: Suite 100
+                    city: Roswell
+                    stateOrProvinceCode: GA
+                    postalCode: "30076"
+                    countryCode: US
+                  billingInformation:
+                    enrollmentOption: "01"
+                    transactionPreference: "02"
+                    emailReceipt:
+                      notificationPreference: "01"
+                    email: test@ups.com
+                  pickupContactInformation:
+                    contactName:
+                      firstName: Jeff
+                      surname: Thompson
+                    attentionName: Shipping Pickup
+                    businessName: ABC Shipping Company
+                    phone:
+                      phoneNumber: "5555555555"
+                      extension: "6033"
+                    email: test@ups.com
+                  pickupAddress:
+                    streetAddress:
+                      addressLine1: 12380 Morris Road
+                      addressLine2: Suite S318B
+                    city: Alpharetta
+                    stateOrProvinceCode: GA
+                    postalCode: "30005"
+                    countryCode: US
+                  pickupInformation:
+                    type: "07"
+                    location: Front Door
+                    earliestPickupTime: "090000"
+                    preferredPickupTime: "120000"
+                    latestPickupTime: "180000"
+                    pickupStartDate: "20220822"
+                    pickupDays:
+                    - Monday
+                    - Tuesday
+                  locale:
+                    languageCode: EN
+                    countryCode: US
+            schema:
+              $ref: '#/components/schemas/OpenAccountRequest'
+        description: "Generate sample code for popular API requests by selecting an\
+          \ example below. To view a full sample request and response, first click\
+          \ \"Authorize\" and enter your application credentials, then populate the\
+          \ required parameters above and click \"Try it out\"."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenRequestResponse'
+          description: Customer Account Created Successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseWrapper'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseWrapper'
+          description: Unauthorized
+      summary: Request Shipper Accounts
+      tags:
+      - Shipper Account Request
+      x-content-type: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    OpenAccountRequest:
+      example:
+        weekendPickupInformation:
+          pickupDays:
+          - Monday
+          - Monday
+          preferredPickupTime: "121500"
+          weekendDeliveryOptions: Saturday Eligible Commercial
+          earliestPickupTime: "121500"
+          latestPickupTime: "121500"
+          location: Front Door
+          type: "01"
+          pickupStartDate: "20220912"
+        accountCharacteristics:
+          creditCardToken: "4199350000000002"
+          myUPSId:
+            id: id
+          accountReason: "01"
+          currentCarrier: "31"
+          customerClassification: "01"
+          taxInformation:
+            taxId: taxId
+            VAT:
+              VATTaxId: VATTaxId
+              type: VATTaxId
+          customerName:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: Mr.
+            suffix: Jr
+          email:
+            emailAddress: shipping@ups.com
+            emailType: personal
+        accountVerification:
+          documentation:
+            documentDetails:
+              paymentCardType: "06"
+              paymentCardNumber: paymentCardNumber
+              securityCode: "098"
+              expirationDate: "202205"
+            documentType: "01"
+            documentOwnerName:
+              firstName: John
+              middleInitial: A.
+              surname: Smith
+              title: title
+              suffix: Jr
+            documentOwnerAddress:
+              streetAddress:
+                addressLine1: 123 South Main St
+                addressLine2: Suite 500
+                addressLine3: addressLine3
+              city: city
+              addressType: business
+              countryCode: US
+              postalCode: 30022-1323
+              stateOrProvinceCode: stateOrProvinceCode
+          accountInitiator:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: title
+            suffix: Jr
+          commodities:
+            commodity: "06"
+          principalName:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: title
+            suffix: Jr
+          title:
+            functionalTitle: functionalTitle
+            professionalTitle: professionalTitle
+          paymentType:
+            type: Credit Card
+        businessInformation:
+          shipmentInformation:
+            shippingFrequency: Weekly
+            packageWeight:
+              unitOfMeasurement: LB
+              weight: weight
+            type: "01"
+            noOfPackages: noOfPackages
+          shipperRequirements:
+          - answer: true
+            licensedInAllStates: true
+            type: "01"
+          - answer: true
+            licensedInAllStates: true
+            type: "01"
+          industry: "8000"
+          importBrokerage:
+            name: ABC Brokerage
+            type: "02"
+          numberOfEmployees: "06"
+        billingContactInformation:
+          departmentName: departmentName
+          mailstopCode: mailstopCode
+          attentionName: attentionName
+          phone:
+            phoneType: home
+            extension: extension
+            phoneNumber: phoneNumber
+          contactName:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: title
+            suffix: Jr
+          businessName: businessName
+          contactType: business
+          customerCommunication:
+            notificationPreference: "00"
+          email: from@to.com
+        pickupContactInformation:
+          departmentName: departmentName
+          mailstopCode: mailstopCode
+          attentionName: attentionName
+          phone:
+            phoneType: home
+            extension: extension
+            phoneNumber: phoneNumber
+          contactName:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: title
+            suffix: Jr
+          businessName: businessName
+          contactType: business
+          customerCommunication:
+            notificationPreference: "00"
+          email: from@to.com
+        endUserInformation:
+          ipAddress: 10.26.1.1
+          deviceIdentity: 10.25.2.1
+          email: account@abcshipping.com
+        billingAddress:
+          streetAddress:
+            addressLine1: 123 South Main St
+            addressLine2: Suite 500
+            addressLine3: addressLine3
+          city: city
+          addressType: business
+          countryCode: US
+          postalCode: 30022-1323
+          stateOrProvinceCode: stateOrProvinceCode
+        billingInformation:
+          enrollmentOption: "01"
+          emailReceipt:
+            notificationPreference: "00"
+          transactionPreference: "02"
+          email:
+            emailAddress: shipping@ups.com
+            emailType: personal
+        pickupInformation:
+          pickupDays:
+          - Monday
+          - Monday
+          preferredPickupTime: "121500"
+          weekendDeliveryOptions: Saturday Eligible Commercial
+          earliestPickupTime: "121500"
+          latestPickupTime: "121500"
+          location: Front Door
+          type: "01"
+          pickupStartDate: "20220912"
+        locale:
+          countryCode: US
+          languageCode: EN
+        pickupaddress:
+          streetAddress:
+            addressLine1: 123 South Main St
+            addressLine2: Suite 500
+            addressLine3: addressLine3
+          city: city
+          addressType: business
+          countryCode: US
+          postalCode: 30022-1323
+          stateOrProvinceCode: stateOrProvinceCode
+      properties:
+        endUserInformation:
+          $ref: '#/components/schemas/endUserInformation'
+        accountCharacteristics:
+          $ref: '#/components/schemas/customerAccountCharacteristics'
+        businessInformation:
+          $ref: '#/components/schemas/businessInformation'
+        accountVerification:
+          $ref: '#/components/schemas/accountVerification'
+        billingContactInformation:
+          $ref: '#/components/schemas/contact'
+        billingAddress:
+          $ref: '#/components/schemas/address'
+        billingInformation:
+          $ref: '#/components/schemas/billingInformation'
+        pickupContactInformation:
+          $ref: '#/components/schemas/contact'
+        pickupaddress:
+          $ref: '#/components/schemas/address'
+        pickupInformation:
+          $ref: '#/components/schemas/pickupInformation'
+        weekendPickupInformation:
+          $ref: '#/components/schemas/pickupInformation'
+        locale:
+          $ref: '#/components/schemas/locale'
+      title: OpenAccountRequest
+      type: object
+    OpenRequestResponse:
+      example:
+        addressCandidate:
+          streetAddress:
+            addressLine1: 123 South Main St
+            addressLine2: Suite 500
+            addressLine3: addressLine3
+          city: city
+          addressType: business
+          countryCode: US
+          postalCode: 30022-1323
+          stateOrProvinceCode: stateOrProvinceCode
+        notifyTime: "230000"
+        shipperNumber: shipperNumber
+        openAccountResponse:
+          code: code
+          additionalInfo:
+          - severity: hard
+            code: code
+            description: Account will be effective in 24 hours
+            informationType: error
+          - severity: hard
+            code: code
+            description: Account will be effective in 24 hours
+            informationType: error
+          description: description
+          status: status
+      properties:
+        openAccountResponse:
+          $ref: '#/components/schemas/commonResponse'
+        shipperNumber:
+          description: Newly opened Shipper Account Number
+          type: string
+        notifyTime:
+          description: |-
+            Provided if SMART Pickup Location is valid
+
+            format: hhmmss
+          example: "230000"
+          maxLength: 8
+          minLength: 1
+          type: string
+        addressCandidate:
+          $ref: '#/components/schemas/address'
+      title: OpenRequestResponse
+      type: object
+    errorResponseWrapper:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/errors'
+          type: array
+      type: object
+    errors:
+      properties:
+        code:
+          description: Error code
+          type: string
+        message:
+          description: Error message
+          type: string
+      type: object
+    endUserInformation:
+      description: UPS Common Data Model for End User Information
+      example:
+        ipAddress: 10.26.1.1
+        deviceIdentity: 10.25.2.1
+        email: account@abcshipping.com
+      properties:
+        deviceIdentity:
+          description: |-
+            Provide the end user “IOBB” or blackbox information obtained via the iOvations Snare.js. To capture this information your application must integrate the ReputationManager 360 functionality. Guides to assist you with the integration are provided in the developer kit under the "ReputationManagerTM 360" folder.
+
+            Required if Billing Country code is European.
+          example: 10.25.2.1
+          maxLength: 4000
+          minLength: 1
+          type: string
+        ipAddress:
+          description: Allows the user to provide their IP address for the shipper
+            account
+          example: 10.26.1.1
+          format: ipv4
+          maxLength: 15
+          minLength: 1
+          type: string
+        email:
+          example: account@abcshipping.com
+          format: email
+          title: email
+          type: string
+      title: endUserInformation
+      type: object
+    contactName:
+      example:
+        firstName: John
+        middleInitial: A.
+        surname: Smith
+        title: Mr.
+        suffix: Jr
+      properties:
+        title:
+          example: Mr.
+          type: string
+        firstName:
+          example: John
+          maxLength: 25
+          minLength: 1
+          type: string
+        middleInitial:
+          example: A.
+          maxLength: 2
+          minLength: 1
+          type: string
+        surname:
+          example: Smith
+          maxLength: 50
+          minLength: 1
+          type: string
+        suffix:
+          example: Jr
+          maxLength: 3
+          minLength: 1
+          type: string
+      title: contactName
+      type: object
+    taxInformation_VAT:
+      description: Optional and only applicable to European customers.
+      example:
+        VATTaxId: VATTaxId
+        type: VATTaxId
+      properties:
+        type:
+          enum:
+          - VATTaxId
+          - NIF
+          type: string
+        VATTaxId:
+          type: string
+      type: object
+    taxInformation:
+      example:
+        taxId: taxId
+        VAT:
+          VATTaxId: VATTaxId
+          type: VATTaxId
+      properties:
+        taxId:
+          description: Tax Id or EID for the Shipper Account
+          maxLength: 16
+          minLength: 1
+          type: string
+        VAT:
+          $ref: '#/components/schemas/taxInformation_VAT'
+      title: taxInformation
+      type: object
+    emailInformation:
+      example:
+        emailAddress: shipping@ups.com
+        emailType: personal
+      properties:
+        emailType:
+          enum:
+          - personal
+          - work
+          - business
+          type: string
+        emailAddress:
+          example: shipping@ups.com
+          format: email
+          maxLength: 50
+          type: string
+      title: emailInformation
+      type: object
+    myUPSId:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      title: myUPSId
+      type: object
+    customerAccountCharacteristics:
+      example:
+        creditCardToken: "4199350000000002"
+        myUPSId:
+          id: id
+        accountReason: "01"
+        currentCarrier: "31"
+        customerClassification: "01"
+        taxInformation:
+          taxId: taxId
+          VAT:
+            VATTaxId: VATTaxId
+            type: VATTaxId
+        customerName:
+          firstName: John
+          middleInitial: A.
+          surname: Smith
+          title: Mr.
+          suffix: Jr
+        email:
+          emailAddress: shipping@ups.com
+          emailType: personal
+      properties:
+        customerClassification:
+          description: |-
+            01=Business
+            02=Personal
+          enum:
+          - "01"
+          - "02"
+          example: "01"
+          maxLength: 2
+          minLength: 1
+          type: string
+        customerName:
+          $ref: '#/components/schemas/contactName'
+        taxInformation:
+          $ref: '#/components/schemas/taxInformation'
+        creditCardToken:
+          description: Required if Customer Classification is of type "personal"
+          example: "4199350000000002"
+          maxLength: 16
+          minLength: 1
+          type: string
+        accountReason:
+          description: |-
+            01 = Starting a new business
+            02 = Currently using another carrier
+            06 = Occassional Shipping needs
+          example: "01"
+          maxLength: 2
+          minLength: 1
+          type: string
+        currentCarrier:
+          description: |-
+            31 = DHL
+            32 = FedEx
+            33 = US Postal Service
+            34 = Other
+          enum:
+          - "31"
+          - "32"
+          - "33"
+          - "34"
+          example: "31"
+          maxLength: 2
+          minLength: 1
+          type: string
+        email:
+          $ref: '#/components/schemas/emailInformation'
+        myUPSId:
+          $ref: '#/components/schemas/myUPSId'
+      required:
+      - customerClassification
+      title: customerAccountCharacteristics
+      type: object
+    weight:
+      example:
+        unitOfMeasurement: LB
+        weight: weight
+      properties:
+        unitOfMeasurement:
+          enum:
+          - LB
+          - KG
+          example: LB
+          maxLength: 2
+          minLength: 2
+          type: string
+        weight:
+          type: string
+      title: weight
+      type: object
+    shipmentInformation:
+      example:
+        shippingFrequency: Weekly
+        packageWeight:
+          unitOfMeasurement: LB
+          weight: weight
+        type: "01"
+        noOfPackages: noOfPackages
+      properties:
+        type:
+          description: |-
+            01 - Ground
+            02 - Air
+            03 - International
+          enum:
+          - "01"
+          - "02"
+          - "03"
+          example: "01"
+          maxLength: 2
+          minLength: 2
+          type: string
+        shippingFrequency:
+          enum:
+          - Weekly
+          type: string
+        noOfPackages:
+          description: Identifies the averages of packages that will be shipped in
+            a week
+          type: string
+        packageWeight:
+          $ref: '#/components/schemas/weight'
+      title: shipmentInformation
+      type: object
+    shipperRequirements_inner:
+      example:
+        answer: true
+        licensedInAllStates: true
+        type: "01"
+      properties:
+        type:
+          description: |-
+            01 = Prescription to Patients
+            02 = Online or Mail Order Pharmacy
+            03 = Hazardous Materials
+            04 = Lithium Batteries
+            05 = Firearms
+            06 = Ammunition
+            07 = Alcoholic Beverages
+            08 = Tobacco
+          enum:
+          - "01"
+          - "02"
+          - "03"
+          - "04"
+          - "05"
+          - "06"
+          - "07"
+          - "08"
+          example: "01"
+          maxLength: 2
+          minLength: 1
+          type: string
+        answer:
+          title: indicator
+          type: boolean
+        licensedInAllStates:
+          title: indicator
+          type: boolean
+      type: object
+    businessInformation_importBrokerage:
+      example:
+        name: ABC Brokerage
+        type: "02"
+      properties:
+        type:
+          description: |
+            Identifies the Shippers import brokerage
+
+            01 = UPS
+            02 = Existing Brokerage
+            03 = Do not know
+          enum:
+          - "01"
+          - "02"
+          - "03"
+          example: "02"
+          maxLength: 2
+          minLength: 2
+          type: string
+        name:
+          description: |
+            Identifies the shippers existing brokerage
+
+            01 - UPS
+            02 - Existing Brokerage
+            03 - Do not know
+          example: ABC Brokerage
+          maxLength: 50
+          minLength: 1
+          type: string
+      type: object
+    businessInformation:
+      example:
+        shipmentInformation:
+          shippingFrequency: Weekly
+          packageWeight:
+            unitOfMeasurement: LB
+            weight: weight
+          type: "01"
+          noOfPackages: noOfPackages
+        shipperRequirements:
+        - answer: true
+          licensedInAllStates: true
+          type: "01"
+        - answer: true
+          licensedInAllStates: true
+          type: "01"
+        industry: "8000"
+        importBrokerage:
+          name: ABC Brokerage
+          type: "02"
+        numberOfEmployees: "06"
+      properties:
+        industry:
+          description: |-
+            2000 = Automotive
+            3000 = High Tech
+            4000 = Industrial Manufacturing & Distribution
+            5000 = Retail and Consumer Goods
+            6000 = Professional Services
+            7000 = Consumer Services
+            8000 = Healthcare
+            9000 = Government
+            9900 = Other
+          enum:
+          - "2000"
+          - "3000"
+          - "4000"
+          - "5000"
+          - "6000"
+          - "7000"
+          - "8000"
+          - "9000"
+          - "9900"
+          example: "8000"
+          maxLength: 4
+          minLength: 1
+          type: string
+        numberOfEmployees:
+          description: |-
+            01 = 1
+            02 = 2-5
+            03 = 6-10
+            04 = 11-19
+            05 = 20-49
+            06 = 50-99
+            07 = 100+
+          enum:
+          - "01"
+          - "02"
+          - "03"
+          - "04"
+          - "05"
+          - "06"
+          - "07"
+          example: "06"
+          maxLength: 2
+          minLength: 1
+          type: string
+        shipmentInformation:
+          $ref: '#/components/schemas/shipmentInformation'
+        shipperRequirements:
+          description: ""
+          items:
+            $ref: '#/components/schemas/shipperRequirements_inner'
+          title: shipperRequirements
+          type: array
+        importBrokerage:
+          $ref: '#/components/schemas/businessInformation_importBrokerage'
+      title: businessInformation
+      type: object
+    contactName_1:
+      example:
+        firstName: John
+        middleInitial: A.
+        surname: Smith
+        title: title
+        suffix: Jr
+      properties:
+        title:
+          type: string
+        firstName:
+          example: John
+          maxLength: 25
+          minLength: 1
+          type: string
+        middleInitial:
+          example: A.
+          maxLength: 2
+          minLength: 1
+          type: string
+        surname:
+          example: Smith
+          maxLength: 50
+          minLength: 1
+          type: string
+        suffix:
+          example: Jr
+          maxLength: 3
+          minLength: 1
+          type: string
+      title: contactName
+      type: object
+    title:
+      example:
+        functionalTitle: functionalTitle
+        professionalTitle: professionalTitle
+      properties:
+        professionalTitle:
+          type: string
+        functionalTitle:
+          type: string
+      title: title
+      type: object
+    paymentInformation:
+      description: ""
+      example:
+        paymentCardType: "06"
+        paymentCardNumber: paymentCardNumber
+        securityCode: "098"
+        expirationDate: "202205"
+      properties:
+        paymentCardType:
+          description: |
+            01 = American Express
+            03 = Discover Card
+            04 = Master Card
+            05 = Optima
+            06 = Discover
+            07 = Bravo
+            08 = Diners Club
+            10 = Carte Blanche
+            11 = Bancontact/Mister Cash
+            13 = Dankort
+            14 = Hipercard
+            15 = Jcb
+            16 = Maestro
+            17 = Postepay
+            18 = Unionpay
+            19 = Visa Electron
+            20 = Vpay
+            21 = Carte Bleue
+          enum:
+          - "01"
+          - "03"
+          - "04"
+          - "05"
+          - "06"
+          - "07"
+          - "08"
+          - "10"
+          - "11"
+          - "13"
+          - "14"
+          - "15"
+          - "16"
+          - "17"
+          - "18"
+          - "19"
+          - "20"
+          - "21"
+          example: "06"
+          maxLength: 2
+          minLength: 2
+          type: string
+        paymentCardNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+        expirationDate:
+          description: YYYYMM format
+          example: "202205"
+          maxLength: 6
+          minLength: 1
+          type: string
+        securityCode:
+          example: "098"
+          maxLength: 24
+          minLength: 1
+          type: string
+      title: paymentInformation
+      type: object
+    streetAddress:
+      example:
+        addressLine1: 123 South Main St
+        addressLine2: Suite 500
+        addressLine3: addressLine3
+      properties:
+        addressLine1:
+          description: "Street Address, PO Box No, Military Address etc"
+          example: 123 South Main St
+          maxLength: 30
+          minLength: 1
+          type: string
+        addressLine2:
+          example: Suite 500
+          maxLength: 30
+          minLength: 1
+          type: string
+        addressLine3:
+          description: Not applicable for US/CA/PR
+          maxLength: 30
+          minLength: 1
+          type: string
+      title: streetAddress
+      type: object
+    address:
+      description: UPS Common Data Model for Address
+      example:
+        streetAddress:
+          addressLine1: 123 South Main St
+          addressLine2: Suite 500
+          addressLine3: addressLine3
+        city: city
+        addressType: business
+        countryCode: US
+        postalCode: 30022-1323
+        stateOrProvinceCode: stateOrProvinceCode
+      properties:
+        addressType:
+          enum:
+          - business
+          - residential
+          - pickup
+          - billing
+          - account-verification
+          type: string
+        streetAddress:
+          $ref: '#/components/schemas/streetAddress'
+        city:
+          type: string
+        stateOrProvinceCode:
+          type: string
+        postalCode:
+          example: 30022-1323
+          maxLength: 10
+          minLength: 5
+          type: string
+        countryCode:
+          example: US
+          type: string
+      title: address
+      type: object
+    accountVerification_documentation:
+      example:
+        documentDetails:
+          paymentCardType: "06"
+          paymentCardNumber: paymentCardNumber
+          securityCode: "098"
+          expirationDate: "202205"
+        documentType: "01"
+        documentOwnerName:
+          firstName: John
+          middleInitial: A.
+          surname: Smith
+          title: title
+          suffix: Jr
+        documentOwnerAddress:
+          streetAddress:
+            addressLine1: 123 South Main St
+            addressLine2: Suite 500
+            addressLine3: addressLine3
+          city: city
+          addressType: business
+          countryCode: US
+          postalCode: 30022-1323
+          stateOrProvinceCode: stateOrProvinceCode
+      properties:
+        documentType:
+          description: |-
+            01 = Payment Card
+            Refers to the Identification Document used for account verification
+          enum:
+          - "01"
+          example: "01"
+          maxLength: 2
+          minLength: 1
+          type: string
+        documentDetails:
+          $ref: '#/components/schemas/paymentInformation'
+        documentOwnerName:
+          $ref: '#/components/schemas/contactName_1'
+        documentOwnerAddress:
+          $ref: '#/components/schemas/address'
+      type: object
+    paymentType:
+      example:
+        type: Credit Card
+      properties:
+        type:
+          enum:
+          - Credit Card
+          - Bank Account
+          type: string
+      title: paymentType
+      type: object
+    commodities:
+      example:
+        commodity: "06"
+      properties:
+        commodity:
+          description: |
+            Commodity Codes
+
+            03 - Animal Related Goods
+            04 - Apparel
+            05 - Automotive Parts
+            06 - Books, Periodicals, Documents
+            07 - Chemicals
+            08 - Other Consumer Goods
+            10 - Food and Non-Alcoholic Beverage
+            11 - Healthcare
+            12 - Industrial Products
+            13 - Logistic Services
+            15 - Retail Services
+            16 - Technology Products
+            18 - Wholesale Goods
+            99 - Other
+          enum:
+          - "03"
+          - "04"
+          - "05"
+          - "06"
+          - "07"
+          - "08"
+          - "10"
+          - "11"
+          - "12"
+          - "13"
+          - "15"
+          - "16"
+          - "18"
+          - "99"
+          example: "06"
+          type: string
+      title: commodities
+      type: object
+    accountVerification:
+      example:
+        documentation:
+          documentDetails:
+            paymentCardType: "06"
+            paymentCardNumber: paymentCardNumber
+            securityCode: "098"
+            expirationDate: "202205"
+          documentType: "01"
+          documentOwnerName:
+            firstName: John
+            middleInitial: A.
+            surname: Smith
+            title: title
+            suffix: Jr
+          documentOwnerAddress:
+            streetAddress:
+              addressLine1: 123 South Main St
+              addressLine2: Suite 500
+              addressLine3: addressLine3
+            city: city
+            addressType: business
+            countryCode: US
+            postalCode: 30022-1323
+            stateOrProvinceCode: stateOrProvinceCode
+        accountInitiator:
+          firstName: John
+          middleInitial: A.
+          surname: Smith
+          title: title
+          suffix: Jr
+        commodities:
+          commodity: "06"
+        principalName:
+          firstName: John
+          middleInitial: A.
+          surname: Smith
+          title: title
+          suffix: Jr
+        title:
+          functionalTitle: functionalTitle
+          professionalTitle: professionalTitle
+        paymentType:
+          type: Credit Card
+      properties:
+        principalName:
+          $ref: '#/components/schemas/contactName_1'
+        title:
+          $ref: '#/components/schemas/title'
+        accountInitiator:
+          $ref: '#/components/schemas/contactName_1'
+        documentation:
+          $ref: '#/components/schemas/accountVerification_documentation'
+        paymentType:
+          $ref: '#/components/schemas/paymentType'
+        commodities:
+          $ref: '#/components/schemas/commodities'
+      title: accountVerification
+      type: object
+    customerPreferences:
+      example:
+        notificationPreference: "00"
+      properties:
+        notificationPreference:
+          description: |-
+            00 - Do Not Notify
+            01 - Notify
+          enum:
+          - "00"
+          - "01"
+          example: "00"
+          type: string
+      title: customerPreferences
+      type: object
+    phone:
+      example:
+        phoneType: home
+        extension: extension
+        phoneNumber: phoneNumber
+      properties:
+        phoneType:
+          enum:
+          - home
+          - mobile
+          - work
+          - business
+          type: string
+        phoneNumber:
+          maxLength: 14
+          maxProperties: 1
+          type: string
+        extension:
+          maxLength: 5
+          maxProperties: 1
+          type: string
+      required:
+      - phoneNumber
+      title: phone
+      type: object
+    contact:
+      example:
+        departmentName: departmentName
+        mailstopCode: mailstopCode
+        attentionName: attentionName
+        phone:
+          phoneType: home
+          extension: extension
+          phoneNumber: phoneNumber
+        contactName:
+          firstName: John
+          middleInitial: A.
+          surname: Smith
+          title: title
+          suffix: Jr
+        businessName: businessName
+        contactType: business
+        customerCommunication:
+          notificationPreference: "00"
+        email: from@to.com
+      properties:
+        contactType:
+          enum:
+          - business
+          - personal
+          - tax
+          - billing
+          - pickup
+          example: business
+          type: string
+        contactName:
+          $ref: '#/components/schemas/contactName_1'
+        attentionName:
+          type: string
+        businessName:
+          type: string
+        departmentName:
+          type: string
+        mailstopCode:
+          type: string
+        customerCommunication:
+          $ref: '#/components/schemas/customerPreferences'
+        email:
+          example: from@to.com
+          format: email
+          title: email
+          type: string
+        phone:
+          $ref: '#/components/schemas/phone'
+      title: contact
+      type: object
+    billingInformation:
+      example:
+        enrollmentOption: "01"
+        emailReceipt:
+          notificationPreference: "00"
+        transactionPreference: "02"
+        email:
+          emailAddress: shipping@ups.com
+          emailType: personal
+      properties:
+        enrollmentOption:
+          description: |
+            Enrollment Option for Bill My Account
+
+            01 = Enroll to Bill My Account
+            02 = Block from Bill My Account
+          enum:
+          - "01"
+          - "02"
+          example: "01"
+          maxLength: 2
+          minLength: 2
+          type: string
+        transactionPreference:
+          description: |-
+            For Shipping bill Shippers UPS Account
+
+            01 = Shipping Only
+          enum:
+          - "02"
+          example: "02"
+          maxLength: 2
+          minLength: 2
+          type: string
+        emailReceipt:
+          $ref: '#/components/schemas/customerPreferences'
+        email:
+          $ref: '#/components/schemas/emailInformation'
+      title: billingInformation
+      type: object
+    pickupInformation:
+      description: ""
+      example:
+        pickupDays:
+        - Monday
+        - Monday
+        preferredPickupTime: "121500"
+        weekendDeliveryOptions: Saturday Eligible Commercial
+        earliestPickupTime: "121500"
+        latestPickupTime: "121500"
+        location: Front Door
+        type: "01"
+        pickupStartDate: "20220912"
+      properties:
+        type:
+          description: |
+            01 = Regular Daily Pickup
+            02 = SMART Pickup
+            07 = Daily-On Route
+            08 = No Scheduled Pickup
+            99 = Day Specific Pickup
+          enum:
+          - "01"
+          - "02"
+          - "07"
+          - "08"
+          - "99"
+          maxLength: 2
+          minLength: 2
+          type: string
+        location:
+          enum:
+          - Front Door
+          - Back Door
+          - Side Door
+          - Shipping
+          - Receiving
+          - Reception
+          - Office
+          - Mail Room
+          - Garage
+          - Upstairs
+          - Downstairs
+          - Third Party
+          - Guard Room
+          - Warehouse
+          example: Front Door
+          maxLength: 11
+          minLength: 6
+          type: string
+        earliestPickupTime:
+          description: "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\
+            \nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+          example: "121500"
+          type: string
+        preferredPickupTime:
+          description: "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\
+            \nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+          example: "121500"
+          type: string
+        latestPickupTime:
+          description: "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\
+            \nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+          example: "121500"
+          type: string
+        pickupStartDate:
+          description: YYYYMMDD Format
+          example: "20220912"
+          maxLength: 8
+          type: string
+        pickupDays:
+          items:
+            enum:
+            - Monday
+            - Tuesday
+            - Wednesday
+            - Thursday
+            - Friday
+            - Saturday
+            type: string
+          type: array
+        weekendDeliveryOptions:
+          description: |-
+            Only used for Weekend Pickup
+
+            01 = Saturday Eligible Commercial
+          enum:
+          - Saturday Eligible Commercial
+          example: Saturday Eligible Commercial
+          maxLength: 2
+          minLength: 2
+          type: string
+      title: pickupInformation
+      type: object
+    locale:
+      example:
+        countryCode: US
+        languageCode: EN
+      properties:
+        languageCode:
+          example: EN
+          maxLength: 2
+          minLength: 2
+          type: string
+        countryCode:
+          example: US
+          maxLength: 2
+          minLength: 2
+          type: string
+      title: locale
+      type: object
+    commonResponse_additionalInfo_inner:
+      example:
+        severity: hard
+        code: code
+        description: Account will be effective in 24 hours
+        informationType: error
+      properties:
+        informationType:
+          enum:
+          - error
+          - alert
+          - info
+          type: string
+        code:
+          type: string
+        severity:
+          enum:
+          - hard
+          - transient
+          - alert
+          type: string
+        description:
+          example: Account will be effective in 24 hours
+          type: string
+      type: object
+    commonResponse:
+      example:
+        code: code
+        additionalInfo:
+        - severity: hard
+          code: code
+          description: Account will be effective in 24 hours
+          informationType: error
+        - severity: hard
+          code: code
+          description: Account will be effective in 24 hours
+          informationType: error
+        description: description
+        status: status
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+        description:
+          type: string
+        additionalInfo:
+          items:
+            $ref: '#/components/schemas/commonResponse_additionalInfo_inner'
+          type: array
+      required:
+      - code
+      - description
+      - status
+      title: commonResponse
+      type: object
+  securitySchemes:
+    oauth2:
+      description: Find your client_id and client_secret on your app info page. <br/>
+        1. Once your credentials are entered select \"Authorize\" and a bearer token
+        will be generated.<br/> 2. Click \"Try it out\" and enter any required values.<br/>
+        3. Select an example request to use or provide your own.<br/> 4. Select \"Send
+        the request using the values above\" to execute your API request.
+      flows:
+        clientCredentials:
+          scopes: {}
+          tokenUrl: https://wwwcie.ups.com/security/v1/oauth/token
+      type: oauth2
+

@@ -1,0 +1,1648 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "UPS Accounts API",
+    "version": "1.0",
+    "description": "UPS Open Account API enables UPS 3rd Party Vendors to request a UPS Shipper Account. If the UPS Shipper Account request is approved, an UPS Shipper Account Number is generated. The UPS Ready Vendor user should first complete the registration process and get a My UPS ID before requesting a Shipper Account. Addresses are validated for accuracy. The User is expected to provide the primary reason for requesting a Shipper Account and the estimated number of Packages to be shipped."
+  },
+  "servers": [
+    {
+      "url": "https://wwwcie.ups.com/api/"
+    }
+  ],
+  "paths": {
+    "/customers/v1/account": {
+      "post": {
+        "summary": "Request Shipper Accounts",
+        "operationId": "shipper-account-request",
+        "description": "Request Shipper Accounts",
+        "responses": {
+          "200": {
+            "description": "Customer Account Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseWrapper"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseWrapper"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenAccountRequest"
+              },
+              "examples": {
+                "json": {
+                  "summary": "A sample JSON request",
+                  "value": {
+                    "endUserInformation": {
+                      "deviceIdentity": "10.25.2.1",
+                      "email": "test@ups.com",
+                      "ipAddress": "10.26.1.1"
+                    },
+                    "accountCharacteristics": {
+                      "customerClassification": "01",
+                      "customerName": {
+                        "firstName": "John",
+                        "middleInitial": "A.",
+                        "surname": "Smith",
+                        "suffix": "Jr"
+                      },
+                      "taxInformation": {
+                        "taxId": "123456789"
+                      },
+                      "accountReason": "01",
+                      "currentCarrier": "31",
+                      "email": "test@ups.com",
+                      "myUPSId": {
+                        "id": "XOLTQA1"
+                      }
+                    },
+                    "businessInformation": {
+                      "industry": "8000",
+                      "numberOfEmployees": "06",
+                      "shipmentInformation": {
+                        "type": "01",
+                        "noOfPackages": "50",
+                        "packageWeight": {
+                          "unitOfMeasurement": "LB"
+                        }
+                      },
+                      "shipperRequirements": [
+                        {
+                          "type": "01",
+                          "answer": true,
+                          "licenseInAllStates": true
+                        },
+                        {
+                          "type": "02",
+                          "answer": false
+                        },
+                        {
+                          "type": "08",
+                          "answer": false
+                        }
+                      ],
+                      "importBrokerage": {
+                        "type": "02",
+                        "name": "ABC Brokerage"
+                      }
+                    },
+                    "accountVerification": {
+                      "principalName": {
+                        "title": "CEO",
+                        "firstName": "John",
+                        "middleInitial": "A.",
+                        "surname": "Smith",
+                        "suffix": "Jr"
+                      },
+                      "accountInitiator": {
+                        "firstName": "John",
+                        "middleInitial": "A.",
+                        "surname": "Smith",
+                        "suffixTitle": "Jr"
+                      },
+                      "documentation": {
+                        "documentOwnerName": {
+                          "firstName": "John",
+                          "middleInitial": "A.",
+                          "surname": "Smith",
+                          "suffixTitle": "Jr"
+                        },
+                        "documentOwnerAddress": {
+                          "streetAddress": {
+                            "addressLine1": "2010 Warsaw Road"
+                          },
+                          "city": "Roswell",
+                          "stateOrProvinceCode": "GA",
+                          "postalCode": "30076",
+                          "countryCode": "US"
+                        }
+                      },
+                      "paymentType": {
+                        "type": "Credit Card"
+                      },
+                      "commodities": {
+                        "commodity": "06"
+                      }
+                    },
+                    "billingContactInformation": {
+                      "contactName": {
+                        "firstName": "Mary",
+                        "surname": "Jane"
+                      },
+                      "attentionName": "Billing",
+                      "businessName": "ABC Shipping Company",
+                      "email": "test@ups.com",
+                      "phone": {
+                        "phoneNumber": "5555555555"
+                      }
+                    },
+                    "billingAddress": {
+                      "streetAddress": {
+                        "addressLine1": "2010 Warsaw Road",
+                        "addressLine2": "Suite 100"
+                      },
+                      "city": "Roswell",
+                      "stateOrProvinceCode": "GA",
+                      "postalCode": "30076",
+                      "countryCode": "US"
+                    },
+                    "billingInformation": {
+                      "enrollmentOption": "01",
+                      "transactionPreference": "02",
+                      "emailReceipt": {
+                        "notificationPreference": "01"
+                      },
+                      "email": "test@ups.com"
+                    },
+                    "pickupContactInformation": {
+                      "contactName": {
+                        "firstName": "Jeff",
+                        "surname": "Thompson"
+                      },
+                      "attentionName": "Shipping Pickup",
+                      "businessName": "ABC Shipping Company",
+                      "phone": {
+                        "phoneNumber": "5555555555",
+                        "extension": "6033"
+                      },
+                      "email": "test@ups.com"
+                    },
+                    "pickupAddress": {
+                      "streetAddress": {
+                        "addressLine1": "12380 Morris Road",
+                        "addressLine2": "Suite S318B"
+                      },
+                      "city": "Alpharetta",
+                      "stateOrProvinceCode": "GA",
+                      "postalCode": "30005",
+                      "countryCode": "US"
+                    },
+                    "pickupInformation": {
+                      "type": "07",
+                      "location": "Front Door",
+                      "earliestPickupTime": "090000",
+                      "preferredPickupTime": "120000",
+                      "latestPickupTime": "180000",
+                      "pickupStartDate": "20220822",
+                      "pickupDays": [
+                        "Monday",
+                        "Tuesday"
+                      ]
+                    },
+                    "locale": {
+                      "languageCode": "EN",
+                      "countryCode": "US"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "description": "Generate sample code for popular API requests by selecting an example below. To view a full sample request and response, first click \"Authorize\" and enter your application credentials, then populate the required parameters above and click \"Try it out\"."
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "x-transaction-id",
+            "description": "Unique Transaction Id"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "x-transaction-source",
+            "description": "Transaction Origin Source"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Y",
+                "N"
+              ]
+            },
+            "in": "query",
+            "name": "requestOption",
+            "description": "Request Options"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "subVersion",
+            "description": "Sub-version Number if any"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "x-customer-context",
+            "description": "Customer Context if any"
+          }
+        ],
+        "tags": [
+          "Shipper Account Request"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "Find your client_id and client_secret on your app info page. <br/> 1. Once your credentials are entered select \\\"Authorize\\\" and a bearer token will be generated.<br/> 2. Click \\\"Try it out\\\" and enter any required values.<br/> 3. Select an example request to use or provide your own.<br/> 4. Select \\\"Send the request using the values above\\\" to execute your API request.",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://wwwcie.ups.com/security/v1/oauth/token",
+            "scopes": {}
+          }
+        }
+      }
+    },
+    "schemas": {
+      "OpenAccountRequest": {
+        "title": "OpenAccountRequest",
+        "type": "object",
+        "properties": {
+          "endUserInformation": {
+            "title": "endUserInformation",
+            "type": "object",
+            "description": "UPS Common Data Model for End User Information",
+            "properties": {
+              "deviceIdentity": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Provide the end user “IOBB” or blackbox information obtained via the iOvations Snare.js. To capture this information your application must integrate the ReputationManager 360 functionality. Guides to assist you with the integration are provided in the developer kit under the \"ReputationManagerTM 360\" folder.\n\nRequired if Billing Country code is European.",
+                "maxLength": 4000,
+                "example": "10.25.2.1"
+              },
+              "ipAddress": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 15,
+                "description": "Allows the user to provide their IP address for the shipper account",
+                "format": "ipv4",
+                "example": "10.26.1.1"
+              },
+              "email": {
+                "type": "string",
+                "title": "email",
+                "format": "email",
+                "example": "account@abcshipping.com"
+              }
+            }
+          },
+          "accountCharacteristics": {
+            "title": "customerAccountCharacteristics",
+            "type": "object",
+            "properties": {
+              "customerClassification": {
+                "type": "string",
+                "enum": [
+                  "01",
+                  "02"
+                ],
+                "example": "01",
+                "minLength": 1,
+                "maxLength": 2,
+                "description": "01=Business\n02=Personal"
+              },
+              "customerName": {
+                "title": "contactName",
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Mr."
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25,
+                    "example": "John"
+                  },
+                  "middleInitial": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "example": "A."
+                  },
+                  "surname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "example": "Smith"
+                  },
+                  "suffix": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "example": "Jr"
+                  }
+                }
+              },
+              "taxInformation": {
+                "title": "taxInformation",
+                "type": "object",
+                "properties": {
+                  "taxId": {
+                    "type": "string",
+                    "description": "Tax Id or EID for the Shipper Account",
+                    "minLength": 1,
+                    "maxLength": 16
+                  },
+                  "VAT": {
+                    "type": "object",
+                    "description": "Optional and only applicable to European customers.",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "VATTaxId",
+                          "NIF"
+                        ]
+                      },
+                      "VATTaxId": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "creditCardToken": {
+                "type": "string",
+                "description": "Required if Customer Classification is of type \"personal\"",
+                "minLength": 1,
+                "maxLength": 16,
+                "example": "4199350000000002"
+              },
+              "accountReason": {
+                "type": "string",
+                "example": "01",
+                "minLength": 1,
+                "maxLength": 2,
+                "description": "01 = Starting a new business\n02 = Currently using another carrier\n06 = Occassional Shipping needs"
+              },
+              "currentCarrier": {
+                "type": "string",
+                "enum": [
+                  "31",
+                  "32",
+                  "33",
+                  "34"
+                ],
+                "minLength": 1,
+                "maxLength": 2,
+                "description": "31 = DHL\n32 = FedEx\n33 = US Postal Service\n34 = Other",
+                "example": "31"
+              },
+              "email": {
+                "title": "emailInformation",
+                "type": "object",
+                "properties": {
+                  "emailType": {
+                    "type": "string",
+                    "enum": [
+                      "personal",
+                      "work",
+                      "business"
+                    ]
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "shipping@ups.com",
+                    "maxLength": 50
+                  }
+                }
+              },
+              "myUPSId": {
+                "title": "myUPSId",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "customerClassification"
+            ]
+          },
+          "businessInformation": {
+            "title": "businessInformation",
+            "type": "object",
+            "properties": {
+              "industry": {
+                "type": "string",
+                "enum": [
+                  "2000",
+                  "3000",
+                  "4000",
+                  "5000",
+                  "6000",
+                  "7000",
+                  "8000",
+                  "9000",
+                  "9900"
+                ],
+                "example": "8000",
+                "minLength": 1,
+                "maxLength": 4,
+                "description": "2000 = Automotive\n3000 = High Tech\n4000 = Industrial Manufacturing & Distribution\n5000 = Retail and Consumer Goods\n6000 = Professional Services\n7000 = Consumer Services\n8000 = Healthcare\n9000 = Government\n9900 = Other"
+              },
+              "numberOfEmployees": {
+                "type": "string",
+                "enum": [
+                  "01",
+                  "02",
+                  "03",
+                  "04",
+                  "05",
+                  "06",
+                  "07"
+                ],
+                "example": "06",
+                "minLength": 1,
+                "maxLength": 2,
+                "description": "01 = 1\n02 = 2-5\n03 = 6-10\n04 = 11-19\n05 = 20-49\n06 = 50-99\n07 = 100+"
+              },
+              "shipmentInformation": {
+                "title": "shipmentInformation",
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "01",
+                      "02",
+                      "03"
+                    ],
+                    "example": "01",
+                    "minLength": 2,
+                    "maxLength": 2,
+                    "description": "01 - Ground\n02 - Air\n03 - International"
+                  },
+                  "shippingFrequency": {
+                    "type": "string",
+                    "enum": [
+                      "Weekly"
+                    ]
+                  },
+                  "noOfPackages": {
+                    "type": "string",
+                    "description": "Identifies the averages of packages that will be shipped in a week"
+                  },
+                  "packageWeight": {
+                    "title": "weight",
+                    "type": "object",
+                    "properties": {
+                      "unitOfMeasurement": {
+                        "type": "string",
+                        "enum": [
+                          "LB",
+                          "KG"
+                        ],
+                        "example": "LB",
+                        "minLength": 2,
+                        "maxLength": 2
+                      },
+                      "weight": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "shipperRequirements": {
+                "title": "shipperRequirements",
+                "type": "array",
+                "description": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "minLength": 1,
+                      "example": "01",
+                      "maxLength": 2,
+                      "enum": [
+                        "01",
+                        "02",
+                        "03",
+                        "04",
+                        "05",
+                        "06",
+                        "07",
+                        "08"
+                      ],
+                      "description": "01 = Prescription to Patients\n02 = Online or Mail Order Pharmacy\n03 = Hazardous Materials\n04 = Lithium Batteries\n05 = Firearms\n06 = Ammunition\n07 = Alcoholic Beverages\n08 = Tobacco",
+                      "type": "string"
+                    },
+                    "answer": {
+                      "title": "indicator",
+                      "type": "boolean"
+                    },
+                    "licensedInAllStates": {
+                      "title": "indicator",
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "importBrokerage": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2,
+                    "example": "02",
+                    "description": "Identifies the Shippers import brokerage\n\n01 = UPS\n02 = Existing Brokerage\n03 = Do not know\n",
+                    "enum": [
+                      "01",
+                      "02",
+                      "03"
+                    ]
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "ABC Brokerage",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "description": "Identifies the shippers existing brokerage\n\n01 - UPS\n02 - Existing Brokerage\n03 - Do not know\n"
+                  }
+                }
+              }
+            }
+          },
+          "accountVerification": {
+            "title": "accountVerification",
+            "type": "object",
+            "properties": {
+              "principalName": {
+                "title": "contactName",
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25,
+                    "example": "John"
+                  },
+                  "middleInitial": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "example": "A."
+                  },
+                  "surname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "example": "Smith"
+                  },
+                  "suffix": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "example": "Jr"
+                  }
+                }
+              },
+              "title": {
+                "title": "title",
+                "type": "object",
+                "properties": {
+                  "professionalTitle": {
+                    "type": "string"
+                  },
+                  "functionalTitle": {
+                    "type": "string"
+                  }
+                }
+              },
+              "accountInitiator": {
+                "title": "contactName",
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25,
+                    "example": "John"
+                  },
+                  "middleInitial": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "example": "A."
+                  },
+                  "surname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "example": "Smith"
+                  },
+                  "suffix": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "example": "Jr"
+                  }
+                }
+              },
+              "documentation": {
+                "type": "object",
+                "properties": {
+                  "documentType": {
+                    "type": "string",
+                    "example": "01",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "description": "01 = Payment Card\nRefers to the Identification Document used for account verification",
+                    "enum": [
+                      "01"
+                    ]
+                  },
+                  "documentDetails": {
+                    "title": "paymentInformation",
+                    "type": "object",
+                    "properties": {
+                      "paymentCardType": {
+                        "type": "string",
+                        "example": "06",
+                        "minLength": 2,
+                        "maxLength": 2,
+                        "description": "01 = American Express\n03 = Discover Card\n04 = Master Card\n05 = Optima\n06 = Discover\n07 = Bravo\n08 = Diners Club\n10 = Carte Blanche\n11 = Bancontact/Mister Cash\n13 = Dankort\n14 = Hipercard\n15 = Jcb\n16 = Maestro\n17 = Postepay\n18 = Unionpay\n19 = Visa Electron\n20 = Vpay\n21 = Carte Bleue\n",
+                        "enum": [
+                          "01",
+                          "03",
+                          "04",
+                          "05",
+                          "06",
+                          "07",
+                          "08",
+                          "10",
+                          "11",
+                          "13",
+                          "14",
+                          "15",
+                          "16",
+                          "17",
+                          "18",
+                          "19",
+                          "20",
+                          "21"
+                        ]
+                      },
+                      "paymentCardNumber": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100
+                      },
+                      "expirationDate": {
+                        "type": "string",
+                        "example": "202205",
+                        "minLength": 1,
+                        "description": "YYYYMM format",
+                        "maxLength": 6
+                      },
+                      "securityCode": {
+                        "type": "string",
+                        "example": "098",
+                        "minLength": 1,
+                        "maxLength": 24
+                      }
+                    },
+                    "description": ""
+                  },
+                  "documentOwnerName": {
+                    "title": "contactName",
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 25,
+                        "example": "John"
+                      },
+                      "middleInitial": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 2,
+                        "example": "A."
+                      },
+                      "surname": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 50,
+                        "example": "Smith"
+                      },
+                      "suffix": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 3,
+                        "example": "Jr"
+                      }
+                    }
+                  },
+                  "documentOwnerAddress": {
+                    "title": "address",
+                    "description": "UPS Common Data Model for Address",
+                    "type": "object",
+                    "properties": {
+                      "addressType": {
+                        "type": "string",
+                        "enum": [
+                          "business",
+                          "residential",
+                          "pickup",
+                          "billing",
+                          "account-verification"
+                        ]
+                      },
+                      "streetAddress": {
+                        "title": "streetAddress",
+                        "type": "object",
+                        "properties": {
+                          "addressLine1": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 30,
+                            "example": "123 South Main St",
+                            "description": "Street Address, PO Box No, Military Address etc"
+                          },
+                          "addressLine2": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 30,
+                            "example": "Suite 500"
+                          },
+                          "addressLine3": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 30,
+                            "description": "Not applicable for US/CA/PR"
+                          }
+                        }
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "stateOrProvinceCode": {
+                        "type": "string"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "minLength": 5,
+                        "maxLength": 10,
+                        "example": "30022-1323"
+                      },
+                      "countryCode": {
+                        "type": "string",
+                        "example": "US"
+                      }
+                    }
+                  }
+                }
+              },
+              "paymentType": {
+                "title": "paymentType",
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Credit Card",
+                      "Bank Account"
+                    ]
+                  }
+                }
+              },
+              "commodities": {
+                "title": "commodities",
+                "type": "object",
+                "properties": {
+                  "commodity": {
+                    "type": "string",
+                    "enum": [
+                      "03",
+                      "04",
+                      "05",
+                      "06",
+                      "07",
+                      "08",
+                      "10",
+                      "11",
+                      "12",
+                      "13",
+                      "15",
+                      "16",
+                      "18",
+                      "99"
+                    ],
+                    "example": "06",
+                    "description": "Commodity Codes\n\n03 - Animal Related Goods\n04 - Apparel\n05 - Automotive Parts\n06 - Books, Periodicals, Documents\n07 - Chemicals\n08 - Other Consumer Goods\n10 - Food and Non-Alcoholic Beverage\n11 - Healthcare\n12 - Industrial Products\n13 - Logistic Services\n15 - Retail Services\n16 - Technology Products\n18 - Wholesale Goods\n99 - Other\n"
+                  }
+                }
+              }
+            }
+          },
+          "billingContactInformation": {
+            "title": "contact",
+            "type": "object",
+            "properties": {
+              "contactType": {
+                "type": "string",
+                "enum": [
+                  "business",
+                  "personal",
+                  "tax",
+                  "billing",
+                  "pickup"
+                ],
+                "example": "business"
+              },
+              "contactName": {
+                "title": "contactName",
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25,
+                    "example": "John"
+                  },
+                  "middleInitial": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "example": "A."
+                  },
+                  "surname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "example": "Smith"
+                  },
+                  "suffix": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "example": "Jr"
+                  }
+                }
+              },
+              "attentionName": {
+                "type": "string"
+              },
+              "businessName": {
+                "type": "string"
+              },
+              "departmentName": {
+                "type": "string"
+              },
+              "mailstopCode": {
+                "type": "string"
+              },
+              "customerCommunication": {
+                "title": "customerPreferences",
+                "type": "object",
+                "properties": {
+                  "notificationPreference": {
+                    "type": "string",
+                    "enum": [
+                      "00",
+                      "01"
+                    ],
+                    "description": "00 - Do Not Notify\n01 - Notify",
+                    "example": "00"
+                  }
+                }
+              },
+              "email": {
+                "type": "string",
+                "title": "email",
+                "format": "email",
+                "example": "from@to.com"
+              },
+              "phone": {
+                "title": "phone",
+                "type": "object",
+                "properties": {
+                  "phoneType": {
+                    "type": "string",
+                    "enum": [
+                      "home",
+                      "mobile",
+                      "work",
+                      "business"
+                    ]
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "maxLength": 14,
+                    "maxProperties": 1
+                  },
+                  "extension": {
+                    "type": "string",
+                    "maxProperties": 1,
+                    "maxLength": 5
+                  }
+                },
+                "required": [
+                  "phoneNumber"
+                ]
+              }
+            }
+          },
+          "billingAddress": {
+            "title": "address",
+            "description": "UPS Common Data Model for Address",
+            "type": "object",
+            "properties": {
+              "addressType": {
+                "type": "string",
+                "enum": [
+                  "business",
+                  "residential",
+                  "pickup",
+                  "billing",
+                  "account-verification"
+                ]
+              },
+              "streetAddress": {
+                "title": "streetAddress",
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "123 South Main St",
+                    "description": "Street Address, PO Box No, Military Address etc"
+                  },
+                  "addressLine2": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "Suite 500"
+                  },
+                  "addressLine3": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "description": "Not applicable for US/CA/PR"
+                  }
+                }
+              },
+              "city": {
+                "type": "string"
+              },
+              "stateOrProvinceCode": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 10,
+                "example": "30022-1323"
+              },
+              "countryCode": {
+                "type": "string",
+                "example": "US"
+              }
+            }
+          },
+          "billingInformation": {
+            "title": "billingInformation",
+            "type": "object",
+            "properties": {
+              "enrollmentOption": {
+                "type": "string",
+                "description": "Enrollment Option for Bill My Account\n\n01 = Enroll to Bill My Account\n02 = Block from Bill My Account\n",
+                "enum": [
+                  "01",
+                  "02"
+                ],
+                "minLength": 2,
+                "maxLength": 2,
+                "example": "01"
+              },
+              "transactionPreference": {
+                "type": "string",
+                "example": "02",
+                "minLength": 2,
+                "maxLength": 2,
+                "description": "For Shipping bill Shippers UPS Account\n\n01 = Shipping Only",
+                "enum": [
+                  "02"
+                ]
+              },
+              "emailReceipt": {
+                "title": "customerPreferences",
+                "type": "object",
+                "properties": {
+                  "notificationPreference": {
+                    "type": "string",
+                    "enum": [
+                      "00",
+                      "01"
+                    ],
+                    "description": "00 - Do Not Notify\n01 - Notify",
+                    "example": "00"
+                  }
+                }
+              },
+              "email": {
+                "title": "emailInformation",
+                "type": "object",
+                "properties": {
+                  "emailType": {
+                    "type": "string",
+                    "enum": [
+                      "personal",
+                      "work",
+                      "business"
+                    ]
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "shipping@ups.com",
+                    "maxLength": 50
+                  }
+                }
+              }
+            }
+          },
+          "pickupContactInformation": {
+            "title": "contact",
+            "type": "object",
+            "properties": {
+              "contactType": {
+                "type": "string",
+                "enum": [
+                  "business",
+                  "personal",
+                  "tax",
+                  "billing",
+                  "pickup"
+                ],
+                "example": "business"
+              },
+              "contactName": {
+                "title": "contactName",
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25,
+                    "example": "John"
+                  },
+                  "middleInitial": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2,
+                    "example": "A."
+                  },
+                  "surname": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "example": "Smith"
+                  },
+                  "suffix": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "example": "Jr"
+                  }
+                }
+              },
+              "attentionName": {
+                "type": "string"
+              },
+              "businessName": {
+                "type": "string"
+              },
+              "departmentName": {
+                "type": "string"
+              },
+              "mailstopCode": {
+                "type": "string"
+              },
+              "customerCommunication": {
+                "title": "customerPreferences",
+                "type": "object",
+                "properties": {
+                  "notificationPreference": {
+                    "type": "string",
+                    "enum": [
+                      "00",
+                      "01"
+                    ],
+                    "description": "00 - Do Not Notify\n01 - Notify",
+                    "example": "00"
+                  }
+                }
+              },
+              "email": {
+                "type": "string",
+                "title": "email",
+                "format": "email",
+                "example": "from@to.com"
+              },
+              "phone": {
+                "title": "phone",
+                "type": "object",
+                "properties": {
+                  "phoneType": {
+                    "type": "string",
+                    "enum": [
+                      "home",
+                      "mobile",
+                      "work",
+                      "business"
+                    ]
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "maxLength": 14,
+                    "maxProperties": 1
+                  },
+                  "extension": {
+                    "type": "string",
+                    "maxProperties": 1,
+                    "maxLength": 5
+                  }
+                },
+                "required": [
+                  "phoneNumber"
+                ]
+              }
+            }
+          },
+          "pickupaddress": {
+            "title": "address",
+            "description": "UPS Common Data Model for Address",
+            "type": "object",
+            "properties": {
+              "addressType": {
+                "type": "string",
+                "enum": [
+                  "business",
+                  "residential",
+                  "pickup",
+                  "billing",
+                  "account-verification"
+                ]
+              },
+              "streetAddress": {
+                "title": "streetAddress",
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "123 South Main St",
+                    "description": "Street Address, PO Box No, Military Address etc"
+                  },
+                  "addressLine2": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "Suite 500"
+                  },
+                  "addressLine3": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "description": "Not applicable for US/CA/PR"
+                  }
+                }
+              },
+              "city": {
+                "type": "string"
+              },
+              "stateOrProvinceCode": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 10,
+                "example": "30022-1323"
+              },
+              "countryCode": {
+                "type": "string",
+                "example": "US"
+              }
+            }
+          },
+          "pickupInformation": {
+            "title": "pickupInformation",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "01",
+                  "02",
+                  "07",
+                  "08",
+                  "99"
+                ],
+                "minLength": 2,
+                "maxLength": 2,
+                "description": "01 = Regular Daily Pickup\n02 = SMART Pickup\n07 = Daily-On Route\n08 = No Scheduled Pickup\n99 = Day Specific Pickup\n"
+              },
+              "location": {
+                "type": "string",
+                "enum": [
+                  "Front Door",
+                  "Back Door",
+                  "Side Door",
+                  "Shipping",
+                  "Receiving",
+                  "Reception",
+                  "Office",
+                  "Mail Room",
+                  "Garage",
+                  "Upstairs",
+                  "Downstairs",
+                  "Third Party",
+                  "Guard Room",
+                  "Warehouse"
+                ],
+                "minLength": 6,
+                "maxLength": 11,
+                "example": "Front Door"
+              },
+              "earliestPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "preferredPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "latestPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "pickupStartDate": {
+                "type": "string",
+                "maxLength": 8,
+                "example": "20220912",
+                "description": "YYYYMMDD Format"
+              },
+              "pickupDays": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ]
+                }
+              },
+              "weekendDeliveryOptions": {
+                "type": "string",
+                "description": "Only used for Weekend Pickup\n\n01 = Saturday Eligible Commercial",
+                "minLength": 2,
+                "maxLength": 2,
+                "example": "Saturday Eligible Commercial",
+                "enum": [
+                  "Saturday Eligible Commercial"
+                ]
+              }
+            }
+          },
+          "weekendPickupInformation": {
+            "title": "pickupInformation",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "01",
+                  "02",
+                  "07",
+                  "08",
+                  "99"
+                ],
+                "minLength": 2,
+                "maxLength": 2,
+                "description": "01 = Regular Daily Pickup\n02 = SMART Pickup\n07 = Daily-On Route\n08 = No Scheduled Pickup\n99 = Day Specific Pickup\n"
+              },
+              "location": {
+                "type": "string",
+                "enum": [
+                  "Front Door",
+                  "Back Door",
+                  "Side Door",
+                  "Shipping",
+                  "Receiving",
+                  "Reception",
+                  "Office",
+                  "Mail Room",
+                  "Garage",
+                  "Upstairs",
+                  "Downstairs",
+                  "Third Party",
+                  "Guard Room",
+                  "Warehouse"
+                ],
+                "minLength": 6,
+                "maxLength": 11,
+                "example": "Front Door"
+              },
+              "earliestPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "preferredPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "latestPickupTime": {
+                "type": "string",
+                "example": "121500",
+                "description": "Format: hhmmss \n\ne.g. 230000 for 11:00PM\n\nValid Values\n\nhh: 1-23\nmm: 00, 15, 30, 45\nss: 00"
+              },
+              "pickupStartDate": {
+                "type": "string",
+                "maxLength": 8,
+                "example": "20220912",
+                "description": "YYYYMMDD Format"
+              },
+              "pickupDays": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ]
+                }
+              },
+              "weekendDeliveryOptions": {
+                "type": "string",
+                "description": "Only used for Weekend Pickup\n\n01 = Saturday Eligible Commercial",
+                "minLength": 2,
+                "maxLength": 2,
+                "example": "Saturday Eligible Commercial",
+                "enum": [
+                  "Saturday Eligible Commercial"
+                ]
+              }
+            }
+          },
+          "locale": {
+            "title": "locale",
+            "type": "object",
+            "properties": {
+              "languageCode": {
+                "type": "string",
+                "example": "EN",
+                "minLength": 2,
+                "maxLength": 2
+              },
+              "countryCode": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2,
+                "example": "US"
+              }
+            }
+          }
+        }
+      },
+      "OpenRequestResponse": {
+        "title": "OpenRequestResponse",
+        "type": "object",
+        "properties": {
+          "openAccountResponse": {
+            "title": "commonResponse",
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "additionalInfo": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "informationType": {
+                      "type": "string",
+                      "enum": [
+                        "error",
+                        "alert",
+                        "info"
+                      ]
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "severity": {
+                      "type": "string",
+                      "enum": [
+                        "hard",
+                        "transient",
+                        "alert"
+                      ]
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "Account will be effective in 24 hours"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "status",
+              "code",
+              "description"
+            ]
+          },
+          "shipperNumber": {
+            "type": "string",
+            "description": "Newly opened Shipper Account Number"
+          },
+          "notifyTime": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8,
+            "example": "230000",
+            "description": "Provided if SMART Pickup Location is valid\n\nformat: hhmmss"
+          },
+          "addressCandidate": {
+            "title": "address",
+            "description": "UPS Common Data Model for Address",
+            "type": "object",
+            "properties": {
+              "addressType": {
+                "type": "string",
+                "enum": [
+                  "business",
+                  "residential",
+                  "pickup",
+                  "billing",
+                  "account-verification"
+                ]
+              },
+              "streetAddress": {
+                "title": "streetAddress",
+                "type": "object",
+                "properties": {
+                  "addressLine1": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "123 South Main St",
+                    "description": "Street Address, PO Box No, Military Address etc"
+                  },
+                  "addressLine2": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "example": "Suite 500"
+                  },
+                  "addressLine3": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 30,
+                    "description": "Not applicable for US/CA/PR"
+                  }
+                }
+              },
+              "city": {
+                "type": "string"
+              },
+              "stateOrProvinceCode": {
+                "type": "string"
+              },
+              "postalCode": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 10,
+                "example": "30022-1323"
+              },
+              "countryCode": {
+                "type": "string",
+                "example": "US"
+              }
+            }
+          }
+        }
+      },
+      "errorResponseWrapper": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/errors"
+            }
+          }
+        }
+      },
+      "errors": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Account"
+    }
+  ]
+}
