@@ -58,9 +58,6 @@ public class AppConfig {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		final SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
 		final RestTemplate restTemplate = builder.requestFactory(() -> factory).build();
-		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-//		interceptors.add(new LoggingRequestInterceptor());
-		restTemplate.setInterceptors(interceptors);
 		
 		return restTemplate;
 	}
