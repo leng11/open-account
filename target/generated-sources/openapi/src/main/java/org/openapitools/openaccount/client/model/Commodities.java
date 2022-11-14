@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Commodities.JSON_PROPERTY_COMMODITY
 })
 @JsonTypeName("commodities")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class Commodities {
   /**
    * Commodity Codes  03 - Animal Related Goods 04 - Apparel 05 - Automotive Parts 06 - Books, Periodicals, Documents 07 - Chemicals 08 - Other Consumer Goods 10 - Food and Non-Alcoholic Beverage 11 - Healthcare 12 - Industrial Products 13 - Logistic Services 15 - Retail Services 16 - Technology Products 18 - Wholesale Goods 99 - Other 

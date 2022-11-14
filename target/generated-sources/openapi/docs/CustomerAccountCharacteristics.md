@@ -13,7 +13,7 @@
 |**creditCardToken** | **String** | Required if Customer Classification is of type \&quot;personal\&quot; |  [optional] |
 |**accountReason** | **String** | 01 &#x3D; Starting a new business 02 &#x3D; Currently using another carrier 06 &#x3D; Occassional Shipping needs |  [optional] |
 |**currentCarrier** | [**CurrentCarrierEnum**](#CurrentCarrierEnum) | 31 &#x3D; DHL 32 &#x3D; FedEx 33 &#x3D; US Postal Service 34 &#x3D; Other |  [optional] |
-|**email** | [**EmailInformation**](EmailInformation.md) |  |  [optional] |
+|**email** | **String** |  |  [optional] |
 |**myUPSId** | [**MyUPSId**](MyUPSId.md) |  |  [optional] |
 
 

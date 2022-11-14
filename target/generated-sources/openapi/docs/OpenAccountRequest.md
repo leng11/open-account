@@ -15,7 +15,7 @@
 |**billingAddress** | [**Address**](Address.md) |  |  [optional] |
 |**billingInformation** | [**BillingInformation**](BillingInformation.md) |  |  [optional] |
 |**pickupContactInformation** | [**Contact**](Contact.md) |  |  [optional] |
-|**pickupaddress** | [**Address**](Address.md) |  |  [optional] |
+|**pickupAddress** | [**Address**](Address.md) |  |  [optional] |
 |**pickupInformation** | [**PickupInformation**](PickupInformation.md) |  |  [optional] |
 |**weekendPickupInformation** | [**PickupInformation**](PickupInformation.md) |  |  [optional] |
 |**locale** | [**Locale**](Locale.md) |  |  [optional] |

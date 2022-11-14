@@ -46,12 +46,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   OpenAccountRequest.JSON_PROPERTY_BILLING_ADDRESS,
   OpenAccountRequest.JSON_PROPERTY_BILLING_INFORMATION,
   OpenAccountRequest.JSON_PROPERTY_PICKUP_CONTACT_INFORMATION,
-  OpenAccountRequest.JSON_PROPERTY_PICKUPADDRESS,
+  OpenAccountRequest.JSON_PROPERTY_PICKUP_ADDRESS,
   OpenAccountRequest.JSON_PROPERTY_PICKUP_INFORMATION,
   OpenAccountRequest.JSON_PROPERTY_WEEKEND_PICKUP_INFORMATION,
   OpenAccountRequest.JSON_PROPERTY_LOCALE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class OpenAccountRequest {
   public static final String JSON_PROPERTY_END_USER_INFORMATION = "endUserInformation";
   private EndUserInformation endUserInformation;
@@ -77,8 +77,8 @@ public class OpenAccountRequest {
   public static final String JSON_PROPERTY_PICKUP_CONTACT_INFORMATION = "pickupContactInformation";
   private Contact pickupContactInformation;
 
-  public static final String JSON_PROPERTY_PICKUPADDRESS = "pickupaddress";
-  private Address pickupaddress;
+  public static final String JSON_PROPERTY_PICKUP_ADDRESS = "pickupAddress";
+  private Address pickupAddress;
 
   public static final String JSON_PROPERTY_PICKUP_INFORMATION = "pickupInformation";
   private PickupInformation pickupInformation;
@@ -308,30 +308,30 @@ public class OpenAccountRequest {
   }
 
 
-  public OpenAccountRequest pickupaddress(Address pickupaddress) {
+  public OpenAccountRequest pickupAddress(Address pickupAddress) {
     
-    this.pickupaddress = pickupaddress;
+    this.pickupAddress = pickupAddress;
     return this;
   }
 
    /**
-   * Get pickupaddress
-   * @return pickupaddress
+   * Get pickupAddress
+   * @return pickupAddress
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_PICKUPADDRESS)
+  @JsonProperty(JSON_PROPERTY_PICKUP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Address getPickupaddress() {
-    return pickupaddress;
+  public Address getPickupAddress() {
+    return pickupAddress;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PICKUPADDRESS)
+  @JsonProperty(JSON_PROPERTY_PICKUP_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPickupaddress(Address pickupaddress) {
-    this.pickupaddress = pickupaddress;
+  public void setPickupAddress(Address pickupAddress) {
+    this.pickupAddress = pickupAddress;
   }
 
 
@@ -433,7 +433,7 @@ public class OpenAccountRequest {
         Objects.equals(this.billingAddress, openAccountRequest.billingAddress) &&
         Objects.equals(this.billingInformation, openAccountRequest.billingInformation) &&
         Objects.equals(this.pickupContactInformation, openAccountRequest.pickupContactInformation) &&
-        Objects.equals(this.pickupaddress, openAccountRequest.pickupaddress) &&
+        Objects.equals(this.pickupAddress, openAccountRequest.pickupAddress) &&
         Objects.equals(this.pickupInformation, openAccountRequest.pickupInformation) &&
         Objects.equals(this.weekendPickupInformation, openAccountRequest.weekendPickupInformation) &&
         Objects.equals(this.locale, openAccountRequest.locale);
@@ -441,7 +441,7 @@ public class OpenAccountRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endUserInformation, accountCharacteristics, businessInformation, accountVerification, billingContactInformation, billingAddress, billingInformation, pickupContactInformation, pickupaddress, pickupInformation, weekendPickupInformation, locale);
+    return Objects.hash(endUserInformation, accountCharacteristics, businessInformation, accountVerification, billingContactInformation, billingAddress, billingInformation, pickupContactInformation, pickupAddress, pickupInformation, weekendPickupInformation, locale);
   }
 
   @Override
@@ -456,7 +456,7 @@ public class OpenAccountRequest {
     sb.append("    billingAddress: ").append(toIndentedString(billingAddress)).append("\n");
     sb.append("    billingInformation: ").append(toIndentedString(billingInformation)).append("\n");
     sb.append("    pickupContactInformation: ").append(toIndentedString(pickupContactInformation)).append("\n");
-    sb.append("    pickupaddress: ").append(toIndentedString(pickupaddress)).append("\n");
+    sb.append("    pickupAddress: ").append(toIndentedString(pickupAddress)).append("\n");
     sb.append("    pickupInformation: ").append(toIndentedString(pickupInformation)).append("\n");
     sb.append("    weekendPickupInformation: ").append(toIndentedString(weekendPickupInformation)).append("\n");
     sb.append("    locale: ").append(toIndentedString(locale)).append("\n");

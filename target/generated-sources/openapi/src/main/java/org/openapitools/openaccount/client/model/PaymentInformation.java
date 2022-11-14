@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PaymentInformation.JSON_PROPERTY_SECURITY_CODE
 })
 @JsonTypeName("paymentInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class PaymentInformation {
   /**
    * 01 &#x3D; American Express 03 &#x3D; Discover Card 04 &#x3D; Master Card 05 &#x3D; Optima 06 &#x3D; Discover 07 &#x3D; Bravo 08 &#x3D; Diners Club 10 &#x3D; Carte Blanche 11 &#x3D; Bancontact/Mister Cash 13 &#x3D; Dankort 14 &#x3D; Hipercard 15 &#x3D; Jcb 16 &#x3D; Maestro 17 &#x3D; Postepay 18 &#x3D; Unionpay 19 &#x3D; Visa Electron 20 &#x3D; Vpay 21 &#x3D; Carte Bleue 

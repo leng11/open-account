@@ -1,168 +1,165 @@
 {
-  "endUserInformation": {
-    "deviceIdentity": "10.25.2.1",
-    "email": "test@ups.com",
-    "ipAddress": "10.26.1.1"
-  },
-  "accountCharacteristics": {
-    "customerClassification": "01",
-    "customerName": {
-      "firstName": "John",
-      "middleInitial": "A.",
-      "surname": "Smith",
-      "suffix": "Jr"
+    "endUserInformation": {
+        "deviceIdentity": "10.25.2.1",
+        "email": "sgm@ups.com",
+        "ipAddress":"10.26.1.1"
     },
-    "taxInformation": {
-      "taxId": "123456789"
+    "accountCharacteristics": {
+        "customerClassification": "01",
+        "customerName": {
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "taxInformation": {
+            "taxId": "372886623"
+        },
+        "accountReason": "01",
+        "currentCarrier": "31",
+        "email": "sgm@ups.com",
+        "myUPSId": {
+            "id": "OAQA_XOLT_ps"
+        }
     },
-    "accountReason": "01",
-    "currentCarrier": "31",
-    "email" : {
-      "emailType": "work",
-      "emailAddress": "test@ups.com"
+    "businessInformation": {
+        "industry": "8000",
+        "numberOfEmployees": "06",
+        "shipmentInformation": {
+            "type": "01",
+            "noOfPackages": "50",
+            "packageWeight":{
+                "unitOfMeasurement":"LB"
+            }
+        },
+        "shipperRequirements": [
+            {
+                "type": "01",
+                "answer": true,
+                "licenseInAllStates": true
+            },
+            {
+                "type": "02",
+                "answer": false
+            },
+            {
+                "type": "08",
+                "answer": false
+            }
+        ],
+        "importBrokerage": {
+            "type": "02",
+            "name": "ABC Brokerage"
+        }
     },
-    "myUPSId": {
-      "id": "XOLTQA1"
-    }
-  },
-  "businessInformation": {
-    "industry": "8000",
-    "numberOfEmployees": "06",
-    "shipmentInformation": {
-      "type": "01",
-      "noOfPackages": "50",
-      "packageWeight": {
-        "unitOfMeasurement": "LB"
-      }
+    "accountVerification": {
+        "principalName": {
+            "title": "CEO",
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "accountInitiator": {
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "documentation": {
+        
+            "documentOwnerName": {
+                "firstName": "John",
+                "middleInitial": "A.",
+                "surname": "Smith",
+                "suffix": "Jr"
+            },
+            "documentOwnerAddress": {
+                "streetAddress": {
+                    "addressLine1": "2010 Warsaw Road"
+                },
+                "city": "Roswell",
+                "stateOrProvinceCode": "GA",
+                "postalCode": "30076",
+                "countryCode": "US"
+            }
+        },
+        "paymentType": {
+            "type": "Credit Card"
+        },
+        "commodities": {
+            "commodity": "06"
+        }
     },
-    "shipperRequirements": [
-      {
-        "type": "01",
-        "answer": true,
-        "licensedInAllStates": true
-      },
-      {
-        "type": "02",
-        "answer": false
-      },
-      {
-        "type": "08",
-        "answer": false
-      }
-    ],
-    "importBrokerage": {
-      "type": "02",
-      "name": "ABC Brokerage"
-    }
-  },
-  "accountVerification": {
-    "principalName": {
-      "title": "CEO",
-      "firstName": "John",
-      "middleInitial": "A.",
-      "surname": "Smith",
-      "suffix": "Jr"
+    "billingContactInformation": {  
+        "contactName": {
+            "firstName": "Mary",
+            "surname": "Jane"
+        },
+        "attentionName": "Billing",
+        "businessName": "ABC Shipping Company",
+        "email": "sgm@ups.com",
+        "phone": {
+            "phoneNumber": "6785851000",
+            "extension": "1327"
+        }
     },
-    "accountInitiator": {
-      "firstName": "John",
-      "middleInitial": "A.",
-      "surname": "Smith",
-      "suffix": "Jr"
-    },
-    "documentation": {
-      "documentOwnerName": {
-        "firstName": "John",
-        "middleInitial": "A.",
-        "surname": "Smith",
-        "suffix": "Jr"
-      },
-      "documentOwnerAddress": {
+    "billingAddress": {
         "streetAddress": {
-          "addressLine1": "2010 Warsaw Road"
+            "addressLine1": "2010 Warsaw Road",
+            "addressLine2": "Suite 100"
         },
         "city": "Roswell",
         "stateOrProvinceCode": "GA",
         "postalCode": "30076",
         "countryCode": "US"
-      }
     },
-    "paymentType": {
-      "type": "Credit Card"
+    "billingInformation": {
+        "enrollmentOption": "01",
+        "transactionPreference": "02",
+        "emailReceipt": {
+            "notificationPreference": "01"
+        },
+        "email": "sgm@ups.com"
     },
-    "commodities": {
-      "commodity": "06"
+    "pickupContactInformation": {
+        "contactName": {
+            "firstName": "Jeff",
+            "surname": "Thompson"
+        },
+        "attentionName": "Shipping Pickup",
+        "businessName": "ABC Shipping Company",
+        "phone": {
+            "phoneNumber": "6787464100",
+            "extension": "6033"
+        },
+        "email": "sgm@ups.com"
+    },
+    "pickupAddress": {
+        "streetAddress": {
+            "addressLine1": "12380 Morris Road",
+            "addressLine2": "Suite S318B"
+        },
+        "city": "Alpharetta",
+        "stateOrProvinceCode": "GA",
+        "postalCode": "30005",
+        "countryCode": "US"
+    },
+    "pickupInformation": {
+        "type": "01",
+        "location": "Front Door",
+        "earliestPickupTime": "090000",
+        "preferredPickupTime": "120000",
+        "latestPickupTime": "180000",
+        "pickupStartDate": "20221124",
+        "pickupDays": [
+            "Monday",
+            "Tuesday"
+        ]
+    },
+     "locale": {
+        "languageCode": "EN",
+        "countryCode": "US"
     }
-  },
-  "billingContactInformation": {
-    "contactName": {
-      "firstName": "Mary",
-      "surname": "Jane"
-    },
-    "attentionName": "Billing",
-    "businessName": "ABC Shipping Company",
-    "email": "test@ups.com",
-    "phone": {
-      "phoneNumber": "5555555555"
-    }
-  },
-  "billingAddress": {
-    "streetAddress": {
-      "addressLine1": "2010 Warsaw Road",
-      "addressLine2": "Suite 100"
-    },
-    "city": "Roswell",
-    "stateOrProvinceCode": "GA",
-    "postalCode": "30076",
-    "countryCode": "US"
-  },
-  "billingInformation": {
-    "enrollmentOption": "01",
-    "transactionPreference": "02",
-    "emailReceipt": {
-      "notificationPreference": "01"
-    },
-    "email" : {
-      "emailType": "work",
-      "emailAddress": "test@ups.com"
-    }
-  },
-  "pickupContactInformation": {
-    "contactName": {
-      "firstName": "Jeff",
-      "surname": "Thompson"
-    },
-    "attentionName": "Shipping Pickup",
-    "businessName": "ABC Shipping Company",
-    "phone": {
-      "phoneNumber": "5555555555",
-      "extension": "6033"
-    },
-    "email": "test@ups.com"
-  },
-  "pickupaddress": {
-    "streetAddress": {
-      "addressLine1": "12380 Morris Road",
-      "addressLine2": "Suite S318B"
-    },
-    "city": "Alpharetta",
-    "stateOrProvinceCode": "GA",
-    "postalCode": "30005",
-    "countryCode": "US"
-  },
-  "pickupInformation": {
-    "type": "07",
-    "location": "Front Door",
-    "earliestPickupTime": "090000",
-    "preferredPickupTime": "120000",
-    "latestPickupTime": "180000",
-    "pickupStartDate": "20220822",
-    "pickupDays": [
-      "Monday",
-      "Tuesday"
-    ]
-  },
-  "locale": {
-    "languageCode": "EN",
-    "countryCode": "US"
-  }
+   
 }

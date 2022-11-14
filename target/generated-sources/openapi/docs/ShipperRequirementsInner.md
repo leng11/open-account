@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) | 01 &#x3D; Prescription to Patients 02 &#x3D; Online or Mail Order Pharmacy 03 &#x3D; Hazardous Materials 04 &#x3D; Lithium Batteries 05 &#x3D; Firearms 06 &#x3D; Ammunition 07 &#x3D; Alcoholic Beverages 08 &#x3D; Tobacco |  [optional] |
 |**answer** | **Boolean** |  |  [optional] |
-|**licensedInAllStates** | **Boolean** |  |  [optional] |
+|**licenseInAllStates** | **Boolean** |  |  [optional] |
 
 
 

@@ -433,24 +433,10 @@
                 "example": "31"
               },
               "email": {
-                "title": "emailInformation",
-                "type": "object",
-                "properties": {
-                  "emailType": {
-                    "type": "string",
-                    "enum": [
-                      "personal",
-                      "work",
-                      "business"
-                    ]
-                  },
-                  "emailAddress": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "shipping@ups.com",
-                    "maxLength": 50
-                  }
-                }
+                "type": "string",
+                "title": "email",
+                "format": "email",
+                "example": "account@abcshipping.com"
               },
               "myUPSId": {
                 "title": "myUPSId",
@@ -579,7 +565,7 @@
                       "title": "indicator",
                       "type": "boolean"
                     },
-                    "licensedInAllStates": {
+                    "licenseInAllStates": {
                       "title": "indicator",
                       "type": "boolean"
                     }
@@ -1104,24 +1090,10 @@
                 }
               },
               "email": {
-                "title": "emailInformation",
-                "type": "object",
-                "properties": {
-                  "emailType": {
-                    "type": "string",
-                    "enum": [
-                      "personal",
-                      "work",
-                      "business"
-                    ]
-                  },
-                  "emailAddress": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "shipping@ups.com",
-                    "maxLength": 50
-                  }
-                }
+                "type": "string",
+                "title": "email",
+                "format": "email",
+                "example": "account@abcshipping.com"
               }
             }
           },
@@ -1236,7 +1208,7 @@
               }
             }
           },
-          "pickupaddress": {
+          "pickupAddress": {
             "title": "address",
             "description": "UPS Common Data Model for Address",
             "type": "object",

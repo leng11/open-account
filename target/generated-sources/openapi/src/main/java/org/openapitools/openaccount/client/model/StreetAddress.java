@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   StreetAddress.JSON_PROPERTY_ADDRESS_LINE3
 })
 @JsonTypeName("streetAddress")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class StreetAddress {
   public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
   private String addressLine1;

@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   GenerateTokenSuccessResponse.JSON_PROPERTY_STATUS
 })
 @JsonTypeName("generateTokenSuccessResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:45.247072200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.108784200-05:00[America/New_York]")
 public class GenerateTokenSuccessResponse {
   public static final String JSON_PROPERTY_TOKEN_TYPE = "token_type";
   private String tokenType;

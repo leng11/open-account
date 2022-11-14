@@ -254,9 +254,7 @@ components:
             surname: Smith
             title: Mr.
             suffix: Jr
-          email:
-            emailAddress: shipping@ups.com
-            emailType: personal
+          email: account@abcshipping.com
         accountVerification:
           documentation:
             documentDetails:
@@ -300,6 +298,16 @@ components:
             professionalTitle: professionalTitle
           paymentType:
             type: Credit Card
+        pickupAddress:
+          streetAddress:
+            addressLine1: 123 South Main St
+            addressLine2: Suite 500
+            addressLine3: addressLine3
+          city: city
+          addressType: business
+          countryCode: US
+          postalCode: 30022-1323
+          stateOrProvinceCode: stateOrProvinceCode
         businessInformation:
           shipmentInformation:
             shippingFrequency: Weekly
@@ -310,10 +318,10 @@ components:
             noOfPackages: noOfPackages
           shipperRequirements:
           - answer: true
-            licensedInAllStates: true
+            licenseInAllStates: true
             type: "01"
           - answer: true
-            licensedInAllStates: true
+            licenseInAllStates: true
             type: "01"
           industry: "8000"
           importBrokerage:
@@ -377,9 +385,7 @@ components:
           emailReceipt:
             notificationPreference: "00"
           transactionPreference: "02"
-          email:
-            emailAddress: shipping@ups.com
-            emailType: personal
+          email: account@abcshipping.com
         pickupInformation:
           pickupDays:
           - Monday
@@ -394,16 +400,6 @@ components:
         locale:
           countryCode: US
           languageCode: EN
-        pickupaddress:
-          streetAddress:
-            addressLine1: 123 South Main St
-            addressLine2: Suite 500
-            addressLine3: addressLine3
-          city: city
-          addressType: business
-          countryCode: US
-          postalCode: 30022-1323
-          stateOrProvinceCode: stateOrProvinceCode
       properties:
         endUserInformation:
           $ref: '#/components/schemas/endUserInformation'
@@ -421,7 +417,7 @@ components:
           $ref: '#/components/schemas/billingInformation'
         pickupContactInformation:
           $ref: '#/components/schemas/contact'
-        pickupaddress:
+        pickupAddress:
           $ref: '#/components/schemas/address'
         pickupInformation:
           $ref: '#/components/schemas/pickupInformation'
@@ -587,24 +583,6 @@ components:
           $ref: '#/components/schemas/taxInformation_VAT'
       title: taxInformation
       type: object
-    emailInformation:
-      example:
-        emailAddress: shipping@ups.com
-        emailType: personal
-      properties:
-        emailType:
-          enum:
-          - personal
-          - work
-          - business
-          type: string
-        emailAddress:
-          example: shipping@ups.com
-          format: email
-          maxLength: 50
-          type: string
-      title: emailInformation
-      type: object
     myUPSId:
       example:
         id: id
@@ -632,9 +610,7 @@ components:
           surname: Smith
           title: Mr.
           suffix: Jr
-        email:
-          emailAddress: shipping@ups.com
-          emailType: personal
+        email: account@abcshipping.com
       properties:
         customerClassification:
           description: |-
@@ -682,7 +658,10 @@ components:
           minLength: 1
           type: string
         email:
-          $ref: '#/components/schemas/emailInformation'
+          example: account@abcshipping.com
+          format: email
+          title: email
+          type: string
         myUPSId:
           $ref: '#/components/schemas/myUPSId'
       required:
@@ -743,7 +722,7 @@ components:
     shipperRequirements_inner:
       example:
         answer: true
-        licensedInAllStates: true
+        licenseInAllStates: true
         type: "01"
       properties:
         type:
@@ -772,7 +751,7 @@ components:
         answer:
           title: indicator
           type: boolean
-        licensedInAllStates:
+        licenseInAllStates:
           title: indicator
           type: boolean
       type: object
@@ -819,10 +798,10 @@ components:
           noOfPackages: noOfPackages
         shipperRequirements:
         - answer: true
-          licensedInAllStates: true
+          licenseInAllStates: true
           type: "01"
         - answer: true
-          licensedInAllStates: true
+          licenseInAllStates: true
           type: "01"
         industry: "8000"
         importBrokerage:
@@ -1310,9 +1289,7 @@ components:
         emailReceipt:
           notificationPreference: "00"
         transactionPreference: "02"
-        email:
-          emailAddress: shipping@ups.com
-          emailType: personal
+        email: account@abcshipping.com
       properties:
         enrollmentOption:
           description: |
@@ -1341,7 +1318,10 @@ components:
         emailReceipt:
           $ref: '#/components/schemas/customerPreferences'
         email:
-          $ref: '#/components/schemas/emailInformation'
+          example: account@abcshipping.com
+          format: email
+          title: email
+          type: string
       title: billingInformation
       type: object
     pickupInformation:

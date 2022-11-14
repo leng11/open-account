@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.openaccount.client.model.ContactName;
-import org.openapitools.openaccount.client.model.EmailInformation;
 import org.openapitools.openaccount.client.model.MyUPSId;
 import org.openapitools.openaccount.client.model.TaxInformation;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -43,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CustomerAccountCharacteristics.JSON_PROPERTY_MY_U_P_S_ID
 })
 @JsonTypeName("customerAccountCharacteristics")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class CustomerAccountCharacteristics {
   /**
    * 01&#x3D;Business 02&#x3D;Personal
@@ -138,7 +137,7 @@ public class CustomerAccountCharacteristics {
   private CurrentCarrierEnum currentCarrier;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  private EmailInformation email;
+  private String email;
 
   public static final String JSON_PROPERTY_MY_U_P_S_ID = "myUPSId";
   private MyUPSId myUPSId;
@@ -308,7 +307,7 @@ public class CustomerAccountCharacteristics {
   }
 
 
-  public CustomerAccountCharacteristics email(EmailInformation email) {
+  public CustomerAccountCharacteristics email(String email) {
     
     this.email = email;
     return this;
@@ -319,18 +318,18 @@ public class CustomerAccountCharacteristics {
    * @return email
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "account@abcshipping.com", value = "")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public EmailInformation getEmail() {
+  public String getEmail() {
     return email;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(EmailInformation email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 

@@ -36,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ShipmentInformation.JSON_PROPERTY_PACKAGE_WEIGHT
 })
 @JsonTypeName("shipmentInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class ShipmentInformation {
   /**
    * 01 - Ground 02 - Air 03 - International

@@ -1,5 +1,6 @@
 package com.ups.dap.app;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,8 +9,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import com.ups.dap.app.tool.LoggingRequestInterceptor;
 
 import lombok.Getter;
 
@@ -53,6 +57,11 @@ public class AppConfig {
 	@Bean 
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		final SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-		return builder.requestFactory(() -> factory).build();
+		final RestTemplate restTemplate = builder.requestFactory(() -> factory).build();
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+//		interceptors.add(new LoggingRequestInterceptor());
+		restTemplate.setInterceptors(interceptors);
+		
+		return restTemplate;
 	}
 }

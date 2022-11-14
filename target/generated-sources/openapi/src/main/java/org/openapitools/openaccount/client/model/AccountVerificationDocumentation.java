@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   AccountVerificationDocumentation.JSON_PROPERTY_DOCUMENT_OWNER_ADDRESS
 })
 @JsonTypeName("accountVerification_documentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class AccountVerificationDocumentation {
   /**
    * 01 &#x3D; Payment Card Refers to the Identification Document used for account verification

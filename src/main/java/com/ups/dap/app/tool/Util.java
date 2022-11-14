@@ -57,7 +57,9 @@ public class Util {
 			ObjectMapper mapper = new ObjectMapper();
 			T request = mapper.readValue(OpenAccountDemo.class.getClassLoader().getResourceAsStream(filePath), requestClass);
 
-			enrichers.forEach(enricher -> enricher.enrich(scenarioName, appConfig, request));
+			if(null != enrichers) {
+				enrichers.forEach(enricher -> enricher.enrich(scenarioName, appConfig, request));
+			}
 
 			return request;
 		} catch (Exception ex) {

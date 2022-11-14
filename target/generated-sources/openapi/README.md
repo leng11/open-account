@@ -4,7 +4,7 @@ UPS Accounts API
 
 - API version: 1.0
 
-- Build date: 2022-11-09T11:49:46.244314200-05:00[America/New_York]
+- Build date: 2022-11-14T11:32:27.678763700-05:00[America/New_York]
 
 UPS Open Account API enables UPS 3rd Party Vendors to request a UPS Shipper Account. If the UPS Shipper Account request is approved, an UPS Shipper Account Number is generated. The UPS Ready Vendor user should first complete the registration process and get a My UPS ID before requesting a Shipper Account. Addresses are validated for accuracy. The User is expected to provide the primary reason for requesting a Shipper Account and the estimated number of Packages to be shipped.
 
@@ -143,7 +143,6 @@ Class | Method | HTTP request | Description
  - [ContactName1](docs/ContactName1.md)
  - [CustomerAccountCharacteristics](docs/CustomerAccountCharacteristics.md)
  - [CustomerPreferences](docs/CustomerPreferences.md)
- - [EmailInformation](docs/EmailInformation.md)
  - [EndUserInformation](docs/EndUserInformation.md)
  - [ErrorResponseWrapper](docs/ErrorResponseWrapper.md)
  - [Errors](docs/Errors.md)

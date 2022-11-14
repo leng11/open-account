@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BusinessInformationImportBrokerage.JSON_PROPERTY_NAME
 })
 @JsonTypeName("businessInformation_importBrokerage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class BusinessInformationImportBrokerage {
   /**
    * Identifies the Shippers import brokerage  01 &#x3D; UPS 02 &#x3D; Existing Brokerage 03 &#x3D; Do not know 

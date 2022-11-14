@@ -31,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   ShipperRequirementsInner.JSON_PROPERTY_TYPE,
   ShipperRequirementsInner.JSON_PROPERTY_ANSWER,
-  ShipperRequirementsInner.JSON_PROPERTY_LICENSED_IN_ALL_STATES
+  ShipperRequirementsInner.JSON_PROPERTY_LICENSE_IN_ALL_STATES
 })
 @JsonTypeName("shipperRequirements_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class ShipperRequirementsInner {
   /**
    * 01 &#x3D; Prescription to Patients 02 &#x3D; Online or Mail Order Pharmacy 03 &#x3D; Hazardous Materials 04 &#x3D; Lithium Batteries 05 &#x3D; Firearms 06 &#x3D; Ammunition 07 &#x3D; Alcoholic Beverages 08 &#x3D; Tobacco
@@ -89,8 +89,8 @@ public class ShipperRequirementsInner {
   public static final String JSON_PROPERTY_ANSWER = "answer";
   private Boolean answer;
 
-  public static final String JSON_PROPERTY_LICENSED_IN_ALL_STATES = "licensedInAllStates";
-  private Boolean licensedInAllStates;
+  public static final String JSON_PROPERTY_LICENSE_IN_ALL_STATES = "licenseInAllStates";
+  private Boolean licenseInAllStates;
 
   public ShipperRequirementsInner() {
   }
@@ -149,30 +149,30 @@ public class ShipperRequirementsInner {
   }
 
 
-  public ShipperRequirementsInner licensedInAllStates(Boolean licensedInAllStates) {
+  public ShipperRequirementsInner licenseInAllStates(Boolean licenseInAllStates) {
     
-    this.licensedInAllStates = licensedInAllStates;
+    this.licenseInAllStates = licenseInAllStates;
     return this;
   }
 
    /**
-   * Get licensedInAllStates
-   * @return licensedInAllStates
+   * Get licenseInAllStates
+   * @return licenseInAllStates
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LICENSED_IN_ALL_STATES)
+  @JsonProperty(JSON_PROPERTY_LICENSE_IN_ALL_STATES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getLicensedInAllStates() {
-    return licensedInAllStates;
+  public Boolean getLicenseInAllStates() {
+    return licenseInAllStates;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LICENSED_IN_ALL_STATES)
+  @JsonProperty(JSON_PROPERTY_LICENSE_IN_ALL_STATES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLicensedInAllStates(Boolean licensedInAllStates) {
-    this.licensedInAllStates = licensedInAllStates;
+  public void setLicenseInAllStates(Boolean licenseInAllStates) {
+    this.licenseInAllStates = licenseInAllStates;
   }
 
 
@@ -187,12 +187,12 @@ public class ShipperRequirementsInner {
     ShipperRequirementsInner shipperRequirementsInner = (ShipperRequirementsInner) o;
     return Objects.equals(this.type, shipperRequirementsInner.type) &&
         Objects.equals(this.answer, shipperRequirementsInner.answer) &&
-        Objects.equals(this.licensedInAllStates, shipperRequirementsInner.licensedInAllStates);
+        Objects.equals(this.licenseInAllStates, shipperRequirementsInner.licenseInAllStates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, answer, licensedInAllStates);
+    return Objects.hash(type, answer, licenseInAllStates);
   }
 
   @Override
@@ -201,7 +201,7 @@ public class ShipperRequirementsInner {
     sb.append("class ShipperRequirementsInner {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    answer: ").append(toIndentedString(answer)).append("\n");
-    sb.append("    licensedInAllStates: ").append(toIndentedString(licensedInAllStates)).append("\n");
+    sb.append("    licenseInAllStates: ").append(toIndentedString(licenseInAllStates)).append("\n");
     sb.append("}");
     return sb.toString();
   }

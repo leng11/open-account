@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class OpenAccountDemo implements CommandLineRunner {
-	private static final String SCENARIO_NAME_LOG_FORMAT = "Rate Response for scenario: {}";
+	private static final String SCENARIO_NAME_LOG_FORMAT = "Open Account Response for scenario: {}";
 	
 	RestTemplate restTemplate;
 	AppConfig appConfig; 
@@ -70,12 +70,13 @@ public class OpenAccountDemo implements CommandLineRunner {
 				// create a 32 character unique id.
 				final String transId = UUID.randomUUID().toString().replace("-", "");
 			
-				String requestOption = "";
+				String requestOption = null;
 				if(entry.getValue().size() > AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER) {
 					requestOption = entry.getValue().get(AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER);			
 				}
 				
-				log.info("transId: {}\nrequestOption: [{}]", transId, requestOption);
+				log.info("transId: {}", transId);
+				log.info("requestOption: [{}]", requestOption);
 				final OpenRequestResponse openRequestResponse = shipperAccountRequestApi.shipperAccountRequest(transId,
 																													appConfig.getTransactionSrc(),
 																													requestOption,
@@ -108,6 +109,7 @@ public class OpenAccountDemo implements CommandLineRunner {
 	
 	private void processResult(final String scenarioName, final OpenRequestResponse openRequestResponse) {
 		log.info(SCENARIO_NAME_LOG_FORMAT, scenarioName);
+		log.info("\tResponse");
 		
 		printStatus(openRequestResponse.getOpenAccountResponse());
 		printShipNumber(openRequestResponse.getShipperNumber());
@@ -115,18 +117,20 @@ public class OpenAccountDemo implements CommandLineRunner {
 	}
 	
 	private void printStatus(final CommonResponse response) {
-		log.info("\tResponse");
-		log.info("\t\tStatus: {}", response.getStatus());
-		
-		List<CommonResponseAdditionalInfoInner> responseInfo = response.getAdditionalInfo();
-		if(!responseInfo.isEmpty()) {
-			log.info("\t\tAdditionalInfo:");
-			responseInfo.forEach(info->{
-											log.info("\t\t\t{} {} {}", info.getInformationType(),
-																		info.getCode(),
-																		info.getDescription());
-										});
+		if(null != response) {
+			log.info("\t\tStatus: {}", response.getStatus());
+			
+			List<CommonResponseAdditionalInfoInner> responseInfo = response.getAdditionalInfo();
+			if(!responseInfo.isEmpty()) {
+				log.info("\t\tAdditionalInfo:");
+				responseInfo.forEach(info->{
+												log.info("\t\t\t{} {} {}", info.getInformationType(),
+																			info.getCode(),
+																			info.getDescription());
+											});
+			}
 		}
+		
 	}
 	
 	private void printShipNumber(final String shipNumber) {
@@ -134,15 +138,13 @@ public class OpenAccountDemo implements CommandLineRunner {
 	}
 	
 	private void printAddressCandidate(final Address address) {
-		if(null == address) {
-			return;
+		if(null != address) {	
+			log.info("\t\tAddressCandidate:");
+			log.info("\t\t\taddressType: {}", address.getAddressType());
+			log.info("\t\t\tcity: {}, state: {}, postal code: {}", address.getCity(),
+																	address.getStateOrProvinceCode(),
+																	address.getPostalCode());
 		}
-	
-		log.info("\t\tAddressCandidate:");
-		log.info("\t\t\taddressType: {}", address.getAddressType());
-		log.info("\t\t\tcity: {}, state: {}, postal code: {}", address.getCity(),
-																address.getStateOrProvinceCode(),
-																address.getPostalCode());
 	}
 	
 	private void applicationErrorHandler(Exception ex) {

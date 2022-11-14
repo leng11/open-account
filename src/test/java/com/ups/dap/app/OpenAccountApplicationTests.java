@@ -1,35 +1,32 @@
 package com.ups.dap.app;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
-import org.openapitools.rate.client.model.RATERequestWrapper;
-import org.openapitools.rate.client.model.RATEResponseWrapper;
+import org.openapitools.openaccount.client.api.ShipperAccountRequestApi;
+import org.openapitools.openaccount.client.model.OpenAccountRequest;
+import org.openapitools.openaccount.client.model.OpenRequestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.ups.dap.RateApplication;
+import com.ups.dap.OpenAccountApplication;
 import com.ups.dap.app.tool.CreateRequestEnricher;
 import com.ups.dap.app.tool.Util;
-import com.ups.dap.patch.RateApi;
 
-@SpringBootTest(classes = RateApplication.class)
-class RateApplicationTests {
+@SpringBootTest(classes = OpenAccountApplication.class)
+class OpenAccountApplicationTests {
 	@Autowired
 	AppConfig appConfig;
 	
@@ -39,7 +36,7 @@ class RateApplicationTests {
 	@Test
     void testMain() {
 		assertDoesNotThrow(() -> {
-	        RateApplication.main(new String[]{
+	        OpenAccountApplication.main(new String[]{
 	                "--spring.main.web-environment=false",
 	                "--spring.autoconfigure.exclude=blahblahblah"
 	        });
@@ -57,8 +54,8 @@ class RateApplicationTests {
 															appConfig,
 															Collections.emptyList());
 			assertNotNull(request);
-			assertTrue(request instanceof RATERequestWrapper);
-			assertNotNull(((RATERequestWrapper)request).getRateRequest());
+			assertTrue(request instanceof OpenAccountRequest);
+			assertNotNull(((OpenAccountRequest)request).getEndUserInformation());
 		}
 	}
 	
@@ -67,7 +64,7 @@ class RateApplicationTests {
 		assertThrows(IllegalStateException.class, () -> {
 			Util.createRequestFromJsonFile("Non-existing Json file",
 												"unknownFile",
-												RATERequestWrapper.class,
+												OpenAccountRequest.class,
 												null,
 												null);
 		});
@@ -89,10 +86,6 @@ class RateApplicationTests {
 				assertNotNull(entry.getValue().get(AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER));
 			}
 			
-			if(entry.getValue().size() > AppConfig.SCENARIO_PORPERTY_ADDITIONAL_INFO_PARAMETER) {
-				assertNotNull(entry.getValue().get(AppConfig.SCENARIO_PORPERTY_ADDITIONAL_INFO_PARAMETER));
-			}
-			
 			Class<?> classType = Class.forName(className);
 			assertTrue(classType instanceof Class);
 		}
@@ -105,62 +98,39 @@ class RateApplicationTests {
 	}
 	
 	@Test
-	void getRateResponse() throws JsonMappingException, JsonProcessingException {
+	void getResponse() throws JsonMappingException, JsonProcessingException {
 		String accessToken = Util.getAccessToken(appConfig, restTemplate);
-		final RateApi rateApi = RateDemo.initializeRateApi(restTemplate, appConfig.getRateBaseUrl(), accessToken);
-			
-		final List<String> simpleRateScenarioParameters = appConfig.getScenarioProperties().
-																		get(AppConfig.SIMPLE_RATE_SCENARIO);
-		final String simpleRateJsonFileName = simpleRateScenarioParameters.
-															get(AppConfig.SCENARIO_PROPERTIES_JSON_FILE_NAME);
-			
-		RATERequestWrapper rateRequestWrapper = Util.createRequestFromJsonFile(AppConfig.SIMPLE_RATE_SCENARIO,
-																								simpleRateJsonFileName,
-																								RATERequestWrapper.class,
+		// Prepare Shipper Account Request api access.
+		final ShipperAccountRequestApi shipperAccountRequestApi = OpenAccountDemo.initializeApi(restTemplate, appConfig.getRateBaseUrl(), accessToken);
+				
+				
+		final List<String> successScenarioParameters = appConfig.getScenarioProperties().get(AppConfig.OPEN_ACCOUNT_SUCCESS_SCENARIO);
+		final String successScenarioJsonFileName = successScenarioParameters.get(AppConfig.SCENARIO_PROPERTIES_JSON_FILE_NAME);
+		
+		OpenAccountRequest openAccountRequest = Util.createRequestFromJsonFile(AppConfig.OPEN_ACCOUNT_SUCCESS_SCENARIO,
+																								successScenarioJsonFileName,
+																								OpenAccountRequest.class,
 																								appConfig,
 																								Arrays.asList(new CreateRequestEnricher() {}));
+					
 		// create a 32 character unique id.
-		final String transId = UUID.randomUUID().toString().replaceAll("-", "");
-		
-		final String requestOption = simpleRateScenarioParameters.get(AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER);
-		String additionalInfo = null;
-		if(simpleRateScenarioParameters.size() > AppConfig.SCENARIO_PORPERTY_ADDITIONAL_INFO_PARAMETER) {
-			additionalInfo = simpleRateScenarioParameters.get(AppConfig.SCENARIO_PORPERTY_ADDITIONAL_INFO_PARAMETER);
+		final String transId = UUID.randomUUID().toString().replace("-", "");
+					
+		String requestOption = null;
+		if(successScenarioParameters.size() > AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER) {
+			requestOption = successScenarioParameters.get(AppConfig.SCENARIO_PORPERTY_REQUEST_OPTION_PARAMETER);			
 		}
-		
-		final RATEResponseWrapper rateResponseWrapper = Util.jsonResultPreprocess(rateApi.rate(appConfig.getRateVersion(),
-																												requestOption,
-																												rateRequestWrapper,
-																												transId,
-																												appConfig.getTransactionSrc(),
-																												additionalInfo),
-																								Util.getJsonToObjectConversionMap(),
-																								RATEResponseWrapper.class);
-		assertNotNull(rateRequestWrapper);
-		assertNotNull(rateResponseWrapper);
-		assertNotNull(rateRequestWrapper.getRateRequest());
-		assertNotNull(rateResponseWrapper.getRateResponse());
-		assertEquals("failed to get a successful response from server.", "1", rateResponseWrapper.getRateResponse().getResponse().getResponseStatus().getCode());
-	}
-	
-	@Test
-	void dayRollForward() {
-		Calendar start = new GregorianCalendar();
-		Calendar cal = new GregorianCalendar();
-		
-		Util.dayRoll(cal, 1);
-		
-		assertTrue(cal.after(start));
-	}
-	
-	@Test
-	void dayRollBackward() {
-		Calendar start = new GregorianCalendar();
-		Calendar cal = new GregorianCalendar();
-		
-		Util.dayRoll(cal, -1);
-		
-		assertTrue(cal.before(start));
+						
+		final OpenRequestResponse openRequestResponse = shipperAccountRequestApi.shipperAccountRequest(transId,
+																											appConfig.getTransactionSrc(),
+																											requestOption,
+																											null,
+																											null,
+																											openAccountRequest);
+		assertNotNull(openAccountRequest);
+		assertNotNull(openRequestResponse);
+		assertNotNull(openAccountRequest.getEndUserInformation());
+		assertNotNull(openRequestResponse.getShipperNumber());
 	}
 	
 	@Test

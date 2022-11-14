@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.openaccount.client.model.CustomerPreferences;
-import org.openapitools.openaccount.client.model.EmailInformation;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -37,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BillingInformation.JSON_PROPERTY_EMAIL
 })
 @JsonTypeName("billingInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class BillingInformation {
   /**
    * Enrollment Option for Bill My Account  01 &#x3D; Enroll to Bill My Account 02 &#x3D; Block from Bill My Account 
@@ -117,7 +116,7 @@ public class BillingInformation {
   private CustomerPreferences emailReceipt;
 
   public static final String JSON_PROPERTY_EMAIL = "email";
-  private EmailInformation email;
+  private String email;
 
   public BillingInformation() {
   }
@@ -203,7 +202,7 @@ public class BillingInformation {
   }
 
 
-  public BillingInformation email(EmailInformation email) {
+  public BillingInformation email(String email) {
     
     this.email = email;
     return this;
@@ -214,18 +213,18 @@ public class BillingInformation {
    * @return email
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "account@abcshipping.com", value = "")
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public EmailInformation getEmail() {
+  public String getEmail() {
     return email;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EMAIL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(EmailInformation email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 

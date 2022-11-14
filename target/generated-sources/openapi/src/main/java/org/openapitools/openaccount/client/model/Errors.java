@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Errors.JSON_PROPERTY_MESSAGE
 })
 @JsonTypeName("errors")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-09T11:49:46.244314200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
 public class Errors {
   public static final String JSON_PROPERTY_CODE = "code";
   private String code;
