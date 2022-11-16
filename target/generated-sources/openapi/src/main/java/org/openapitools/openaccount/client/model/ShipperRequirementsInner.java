@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ShipperRequirementsInner.JSON_PROPERTY_LICENSE_IN_ALL_STATES
 })
 @JsonTypeName("shipperRequirements_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.675426900-05:00[America/New_York]")
 public class ShipperRequirementsInner {
   /**
    * 01 &#x3D; Prescription to Patients 02 &#x3D; Online or Mail Order Pharmacy 03 &#x3D; Hazardous Materials 04 &#x3D; Lithium Batteries 05 &#x3D; Firearms 06 &#x3D; Ammunition 07 &#x3D; Alcoholic Beverages 08 &#x3D; Tobacco

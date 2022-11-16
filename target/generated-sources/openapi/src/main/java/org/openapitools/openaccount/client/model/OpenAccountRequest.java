@@ -51,7 +51,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   OpenAccountRequest.JSON_PROPERTY_WEEKEND_PICKUP_INFORMATION,
   OpenAccountRequest.JSON_PROPERTY_LOCALE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.675426900-05:00[America/New_York]")
 public class OpenAccountRequest {
   public static final String JSON_PROPERTY_END_USER_INFORMATION = "endUserInformation";
   private EndUserInformation endUserInformation;

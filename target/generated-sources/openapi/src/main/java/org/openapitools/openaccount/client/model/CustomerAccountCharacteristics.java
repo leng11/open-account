@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CustomerAccountCharacteristics.JSON_PROPERTY_MY_U_P_S_ID
 })
 @JsonTypeName("customerAccountCharacteristics")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.675426900-05:00[America/New_York]")
 public class CustomerAccountCharacteristics {
   /**
    * 01&#x3D;Business 02&#x3D;Personal

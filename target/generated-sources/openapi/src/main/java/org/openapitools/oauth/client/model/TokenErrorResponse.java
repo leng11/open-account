@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   TokenErrorResponse.JSON_PROPERTY_RESPONSE
 })
 @JsonTypeName("tokenErrorResponse")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.108784200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.101297300-05:00[America/New_York]")
 public class TokenErrorResponse {
   public static final String JSON_PROPERTY_RESPONSE = "response";
   private ErrorResponseWrapper response;

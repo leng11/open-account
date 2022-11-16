@@ -113,11 +113,11 @@ public class OpenAccountRequestTest {
     }
 
     /**
-     * Test the property 'pickupaddress'
+     * Test the property 'pickupAddress'
      */
     @Test
-    public void pickupaddressTest() {
-        // TODO: test pickupaddress
+    public void pickupAddressTest() {
+        // TODO: test pickupAddress
     }
 
     /**

@@ -13,6 +13,11 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.openapitools.openaccount.client.api.ShipperAccountRequestApi;
+import org.openapitools.openaccount.client.model.Address;
+import org.openapitools.openaccount.client.model.Address.AddressTypeEnum;
+import org.openapitools.openaccount.client.model.CommonResponse;
+import org.openapitools.openaccount.client.model.CommonResponseAdditionalInfoInner;
+import org.openapitools.openaccount.client.model.CommonResponseAdditionalInfoInner.InformationTypeEnum;
 import org.openapitools.openaccount.client.model.OpenAccountRequest;
 import org.openapitools.openaccount.client.model.OpenRequestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +106,7 @@ class OpenAccountApplicationTests {
 	void getResponse() throws JsonMappingException, JsonProcessingException {
 		String accessToken = Util.getAccessToken(appConfig, restTemplate);
 		// Prepare Shipper Account Request api access.
-		final ShipperAccountRequestApi shipperAccountRequestApi = OpenAccountDemo.initializeApi(restTemplate, appConfig.getRateBaseUrl(), accessToken);
+		final ShipperAccountRequestApi shipperAccountRequestApi = OpenAccountDemo.initializeApi(restTemplate, appConfig.getOpenAccountBaseUrl(), accessToken);
 				
 				
 		final List<String> successScenarioParameters = appConfig.getScenarioProperties().get(AppConfig.OPEN_ACCOUNT_SUCCESS_SCENARIO);
@@ -131,6 +136,31 @@ class OpenAccountApplicationTests {
 		assertNotNull(openRequestResponse);
 		assertNotNull(openAccountRequest.getEndUserInformation());
 		assertNotNull(openRequestResponse.getShipperNumber());
+	}
+	
+	@Test
+	void printStatusCheck() {
+		CommonResponseAdditionalInfoInner commonResponseAdditionalInfoInner = new CommonResponseAdditionalInfoInner();
+		commonResponseAdditionalInfoInner.informationType(InformationTypeEnum.INFO).
+											code("information only").
+											description("description for info.");
+		CommonResponse commonResponse = new CommonResponse();
+		commonResponse.status("success").code("1").addAdditionalInfoItem(commonResponseAdditionalInfoInner);
+		OpenAccountDemo openAccountDemo = new OpenAccountDemo(null, null);
+		
+		assertDoesNotThrow(()->openAccountDemo.printStatus(commonResponse));
+	}
+	
+	@Test
+	void printAddressCandidateCheck() {
+		Address address = new Address();
+		address.city("New York").
+				postalCode("10036").
+				stateOrProvinceCode("New York").
+				addressType(AddressTypeEnum.BUSINESS);
+		OpenAccountDemo openAccountDemo = new OpenAccountDemo(null, null);
+		
+		assertDoesNotThrow(()->openAccountDemo.printAddressCandidate(address));
 	}
 	
 	@Test

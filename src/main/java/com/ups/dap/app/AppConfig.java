@@ -1,6 +1,5 @@
 package com.ups.dap.app;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,11 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-
-import com.ups.dap.app.tool.LoggingRequestInterceptor;
 
 import lombok.Getter;
 
@@ -43,10 +39,10 @@ public class AppConfig {
 	private Map<String,String> accessTokenStore = new ConcurrentHashMap<>();
 	
 	@Value("${api.open.account.base.url:#{null}}")
-	private String rateBaseUrl;
+	private String openAccountBaseUrl;
 	
 	@Value("${api.open.account.version:v1}")
-	private String rateVersion;
+	private String openAccountVersion;
 	
 	@Value("${api.opn.account.transaction.source:testing}")
 	private String transactionSrc;
@@ -57,8 +53,6 @@ public class AppConfig {
 	@Bean 
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		final SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-		final RestTemplate restTemplate = builder.requestFactory(() -> factory).build();
-		
-		return restTemplate;
+		return builder.requestFactory(() -> factory).build();
 	}
 }

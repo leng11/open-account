@@ -56,7 +56,7 @@ import java.time.OffsetDateTime;
 import org.openapitools.oauth.client.auth.Authentication;
 import org.openapitools.oauth.client.auth.HttpBasicAuth;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.108784200-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.101297300-05:00[America/New_York]")
 @Component("org.openapitools.oauth.client.ApiClient")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {

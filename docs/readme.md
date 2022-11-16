@@ -1,18 +1,7 @@
-# Rate
+# Open Account - Shipper Account Request
 ## Introduction
 
-The Rating API allows applications to look up and compare rates for UPS services:
-
-The Rating API gives client applications the ability to:
-
-- Find the rate for a specific UPS service for a specific package or shipment
-- Compare available rates and services for a specific package or shipment
-- Request negotiated rates for a specific package or shipment
->Note: Customers must be authorized and activated for negotiated rates. 
-The API provides the negotiated rates that apply to the selected service. For more 
-information on negotiated rates, including authorization to receive them, please check 
-with your UPS account representative.
-
+UPS Open Account API enables UPS 3rd Party Vendors to request a UPS Shipper Account. If the UPS Shipper Account request is approved, an UPS Shipper Account Number is generated. The UPS Ready Vendor user should first complete the registration process and get a My UPS ID before requesting a Shipper Account. Addresses are validated for accuracy. The User is expected to provide the primary reason for requesting a Shipper Account and the estimated number of Packages to be shipped.
 
 ## Run Procedure
 - fork a copy of the repo in GitHub
@@ -35,18 +24,18 @@ mvn clean package
 (change them!)" where you update with your client specific information like client id and secret.
 
 
-- run com.ups.dap.RateApplication
+- run com.ups.dap.OpenAccountApplication
 ```sh
-java -jar rate-x.x.x.jar             # ex. java -jar rate-0.0.1-SNAPSHOT.jar
+java -jar openAccount-x.x.x.jar             # ex. java -jar openAccount-0.0.1-SNAPSHOT.jar
 ```
 - check console output for application result
 
 
 ## Code Walk Through
 There are 2 notable classes in this tutorial, namely com.ups.dap.app.AppConfig 
-and com.ups.dap.app.RateDemo.  The AppConfig class is a configuration class leveraging 
+and com.ups.dap.app.OpenAccountDemo.  The AppConfig class is a configuration class leveraging 
 Spring injection to incorporate the property value from src/main/resources/application.properties 
-file.  The RateDemo is to illustrate how to use the Rate api.
+file.  The OpenAccountDemo is to illustrate how to use the ShipperAccountRequest api.
 
 ```java
  String accessToken = Util.getAccessToken(appConfig, restTemplate);
@@ -54,419 +43,229 @@ file.  The RateDemo is to illustrate how to use the Rate api.
 > Get an access token via OAuth client_credentials grant type.
 
 ```java
- // Prepare TNT api access.
- final RateApi rateApi = initializeRateApi(restTemplate, appConfig.getRateBaseUrl(), accessToken);
+ // Prepare Shipper Account Request api access.
+ final ShipperAccountRequestApi shipperAccountRequestApi = initializeApi(restTemplate,
+                                                                            appConfig.getOpenAccountBaseUrl(),
+                                                                            accessToken);
 ```
-> initializeRateApi function is to create a Rate api object with the base url and populated 
-the HTTP Authorization header with the access token.
+> initializeApi function is to create a ShipperAccountRequestApi object with the base url and populated the HTTP Authorization header with the access token.
 					
 ```java
-    RATERequestWrapper rateRequestWrapper = Util.createRequestFromJsonFile(entry.getKey(),
-														entry.getValue().get(AppConfig.SCENARIO_PROPERTIES_JSON_FILE_NAME),
-														RATERequestWrapper.class,
-														appConfig,
-														Arrays.asList(new CreateRequestEnricher() {}));
+    OpenAccountRequest openAccountRequest = Util.createRequestFromJsonFile(entry.getKey(),
+																			entry.getValue().get(AppConfig.SCENARIO_PROPERTIES_JSON_FILE_NAME),
+																			OpenAccountRequest.class,
+																			appConfig,
+																			Arrays.asList(new CreateRequestEnricher() {}));
 ```
-> It reconstructs a RATERequestWrapper object from a json file which includes 
-origin/destination address and other required information.  In a typical application, 
-a RATERequestWrapper object would be created via a default constructor followed by 
-a set of setter to populate the necessary attribute.
+> It reconstructs a OpenAccountRequest object from a json file for a successful shipper account request and a missing pickup address case.  In a typical application, an OpenAccountRequest object would be created via a default constructor followed by a set of setter to populate the necessary attribute.
 
 ```java
-	// Get a rate information for a particular shipment.
-	RATEResponseWrapper rateResponseWrapper = rateApi.rate(appConfig.getRateVersion(),
-														requestOption,
-														rateRequestWrapper,
-														transId,
-														appConfig.getTransactionSrc(),
-														additionalInfo);
+	final OpenRequestResponse openRequestResponse = shipperAccountRequestApi.shipperAccountRequest(transId,
+                                                                appConfig.getTransactionSrc(),
+                                                                requestOption,
+                                                                null,
+                                                                null,
+                                                            	openAccountRequest);
 ```
-> A RATEResponseWrapper object will be returned from a backend server for a particular 
-shipment specified in the RATERequestWrapper object.  The RATEResponseWrapper 
-has ResponseStatus and Alert object including the status and alert in respective section. The detail rate information will be in the RatedShipment object.
-
+> An OpenRequestResponse object with shipper account will be returned from a server if everything is in order. Otherwise, a Http response of Bad Request (400) is being returned with Errors object including code and message.
 
 ### Data Schema 
-- [Request Schema RATERequestWrapper](../docs/RATERequestWrapper.md)
+- [Request Schema OpenAccountRequest](../docs/OpenAccountRequest.md)
 
-- [Response Schema RATEResponseWrapper](../docs/RATEResponseWrapper.md)
+- [Response Schema OpenRequestResponse](../docs/OpenRequestResponse.md)
+
+- [Error Schema Errors](../docs/Errors.md)
 
 ### Sample Request/Response
-- Simple Rate request
+- Shipper Account Request
 ```json
 {
-    "RateRequest": {
-      "Request": {
-        "RequestOption": "Rate",
-        "SubVersion": "2108",
-        "TransactionReference": {
-          "CustomerContext": "CustomerContext"
+    "endUserInformation": {
+        "deviceIdentity": "10.25.2.1",
+        "email": "sgm@ups.com",
+        "ipAddress":"10.26.1.1"
+    },
+    "accountCharacteristics": {
+        "customerClassification": "01",
+        "customerName": {
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "taxInformation": {
+            "taxId": "372886623"
+        },
+        "accountReason": "01",
+        "currentCarrier": "31",
+        "email": "sgm@ups.com",
+        "myUPSId": {
+            "id": "OAQA_XOLT_ps"
         }
-      },
-      "Shipment": {
-        "Shipper": {
-          "Name": "ShipperName",
-          "ShipperNumber": "7E6Y36",
-          "Address": {
-            "AddressLine": "2311   RD",
-            "City": "TIMONIUM",
-            "StateProvinceCode": "MD",
-            "PostalCode": "21093",
-            "CountryCode": "US"
-          }
-        },
-        "ShipTo": {
-          "Name": "ShipToName",
-          "Address": {
-            "AddressLine": "ShipToAddressLine",
-            "City": "Alpharetta",
-            "StateProvinceCode": "GA",
-            "PostalCode": "30005",
-            "CountryCode": "US"
-          }
-        },
-        "ShipFrom": {
-          "Name": "ShipFromName",
-          "Address": {
-            "AddressLine": "ShipFromAddressLine",
-            "City": "TIMONIUM",
-            "StateProvinceCode": "MD",
-            "PostalCode": "21093",
-            "CountryCode": "US"
-          }
-        },
-        "PaymentDetails": {
-          "ShipmentCharge": {
-            "Type": "01",
-            "BillShipper": {
-              "AccountNumber": "7E6Y36"
+    },
+    "businessInformation": {
+        "industry": "8000",
+        "numberOfEmployees": "06",
+        "shipmentInformation": {
+            "type": "01",
+            "noOfPackages": "50",
+            "packageWeight":{
+                "unitOfMeasurement":"LB"
             }
-          }
         },
-        "Service": {
-          "Code": "03",
-          "Description": "Ground"
-        },
-        "NumOfPieces": "1",
-        "Package": {
-          "PackagingType": {
-            "Code": "02",
-            "Description": "Packaging"
-          },
-          "Dimensions": {
-            "UnitOfMeasurement": {
-              "Code": "IN",
-              "Description": "Inches"
+        "shipperRequirements": [
+            {
+                "type": "01",
+                "answer": true,
+                "licenseInAllStates": true
             },
-            "Length": "5",
-            "Width": "5",
-            "Height": "5"
-          },
-          "PackageWeight": {
-            "UnitOfMeasurement": {
-              "Code": "LBS",
-              "Description": "Pounds"
+            {
+                "type": "02",
+                "answer": false
             },
-            "Weight": "1"
-          },
-          "SimpleRate" : {
-            "Code" : "XS"
-          }
+            {
+                "type": "08",
+                "answer": false
+            }
+        ],
+        "importBrokerage": {
+            "type": "02",
+            "name": "ABC Brokerage"
         }
-      }
+    },
+    "accountVerification": {
+        "principalName": {
+            "title": "CEO",
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "accountInitiator": {
+            "firstName": "John",
+            "middleInitial": "A.",
+            "surname": "Smith",
+            "suffix": "Jr"
+        },
+        "documentation": {
+        
+            "documentOwnerName": {
+                "firstName": "John",
+                "middleInitial": "A.",
+                "surname": "Smith",
+                "suffix": "Jr"
+            },
+            "documentOwnerAddress": {
+                "streetAddress": {
+                    "addressLine1": "2010 Warsaw Road"
+                },
+                "city": "Roswell",
+                "stateOrProvinceCode": "GA",
+                "postalCode": "30076",
+                "countryCode": "US"
+            }
+        },
+        "paymentType": {
+            "type": "Credit Card"
+        },
+        "commodities": {
+            "commodity": "06"
+        }
+    },
+    "billingContactInformation": {  
+        "contactName": {
+            "firstName": "Mary",
+            "surname": "Jane"
+        },
+        "attentionName": "Billing",
+        "businessName": "ABC Shipping Company",
+        "email": "sgm@ups.com",
+        "phone": {
+            "phoneNumber": "6785851000",
+            "extension": "1327"
+        }
+    },
+    "billingAddress": {
+        "streetAddress": {
+            "addressLine1": "2010 Warsaw Road",
+            "addressLine2": "Suite 100"
+        },
+        "city": "Roswell",
+        "stateOrProvinceCode": "GA",
+        "postalCode": "30076",
+        "countryCode": "US"
+    },
+    "billingInformation": {
+        "enrollmentOption": "01",
+        "transactionPreference": "02",
+        "emailReceipt": {
+            "notificationPreference": "01"
+        },
+        "email": "sgm@ups.com"
+    },
+    "pickupContactInformation": {
+        "contactName": {
+            "firstName": "Jeff",
+            "surname": "Thompson"
+        },
+        "attentionName": "Shipping Pickup",
+        "businessName": "ABC Shipping Company",
+        "phone": {
+            "phoneNumber": "6787464100",
+            "extension": "6033"
+        },
+        "email": "sgm@ups.com"
+    },
+    "pickupAddress": {
+        "streetAddress": {
+            "addressLine1": "12380 Morris Road",
+            "addressLine2": "Suite S318B"
+        },
+        "city": "Alpharetta",
+        "stateOrProvinceCode": "GA",
+        "postalCode": "30005",
+        "countryCode": "US"
+    },
+    "pickupInformation": {
+        "type": "01",
+        "location": "Front Door",
+        "earliestPickupTime": "090000",
+        "preferredPickupTime": "120000",
+        "latestPickupTime": "180000",
+        "pickupStartDate": "20221124",
+        "pickupDays": [
+            "Monday",
+            "Tuesday"
+        ]
+    },
+     "locale": {
+        "languageCode": "EN",
+        "countryCode": "US"
     }
-}
-```
-- An international Rate request 
-```json
-{
-  "RateRequest" : {
-    "Request" : {
-      "RequestOption" : "Rate",
-      "SubVersion" : "1901",
-      "TransactionReference" : {
-        "CustomerContext" : "Verify success returned when international shipment is created with payment option as Bill Shipper with account number"
-      }
-    },
-    "PickupType" : {
-      "Code" : "01",
-      "Description" : "pickup"
-    },
-    "CustomerClassification" : {
-      "Code" : "1607",
-      "Description" : "CustomerClassification"
-    },
-    "Shipment" : {
-      "OriginRecordTransactionTimestamp" : "2016-07-14T12:01:33.999",
-      "Shipper" : {
-        "Name" : "Shipper_Name",
-        "ShipperNumber" : "7E6Y36",
-        "Address" : {
-          "AddressLine" : "Morris Road",
-          "City" : "Alpharetta",
-          "StateProvinceCode" : "GA",
-          "PostalCode" : "30005",
-          "CountryCode" : "US"
-        }
-      },
-      "ShipTo" : {
-        "Name" : "ShipToName",
-        "Address" : {
-          "AddressLine" : "ShipToAddress",
-          "City" : "STARZACH",
-          "StateProvinceCode" : "GA",
-          "PostalCode" : "72181",
-          "CountryCode" : "DE"
-        }
-      },
-      "ShipFrom" : {
-        "Name" : "ShipFromName",
-        "Address" : {
-          "AddressLine" : "ShipFromAddressLine",
-          "City" : "Alpharetta",
-          "StateProvinceCode" : "GA",
-          "PostalCode" : "30005",
-          "CountryCode" : "US"
-        }
-      },
-      "PaymentDetails" : {
-        "ShipmentCharge" : {
-          "Type" : "01",
-          "BillShipper" : {
-            "AccountNumber" : "7E6Y36"
-          }
-        }
-      },
-      "Service" : {
-        "Code" : "96",
-        "Description" : "UPS Worldwide Express Freight"
-      },
-      "NumOfPieces" : "10",
-      "Package" : {
-        "PackagingType" : {
-          "Code" : "30",
-          "Description" : "Pallet"
-        },
-        "Dimensions" : {
-          "UnitOfMeasurement" : {
-            "Code" : "IN",
-            "Description" : "Inches"
-          },
-          "Length" : "5",
-          "Width" : "5",
-          "Height" : "5"
-        },
-        "PackageWeight" : {
-          "UnitOfMeasurement" : {
-            "Code" : "LBS",
-            "Description" : "LBS"
-          },
-          "Weight" : "10"
-        },
-        "PackageServiceOptions" : { },
-        "OversizeIndicator" : "",
-        "MinimumBillableWeightIndicator" : ""
-      },
-      "ShipmentServiceOptions" : { }
-    }
-  }
+   
 }
 ```
 
 
-- A TNT Rate request
+- A successful Shipper Account response
 ```json
 {
-    "RateRequest": {
-      "Request": {
-        "RequestOption": "Rate",
-        "SubVersion": "2108",
-        "TransactionReference": {
-          "CustomerContext": "CustomerContext"
-        }
-      },
-      "Shipment": {
-          "Shipper": {
-            "Name": "ShipperName",
-            "ShipperNumber": "7E6Y36",
-            "Address": {
-              "AddressLine": "ShipperAddressLine",
-              "City": "TIMONIUM",
-              "StateProvinceCode": "MD",
-              "PostalCode": "21093",
-              "CountryCode": "US"
-            }
-          },
-          "ShipTo": {
-            "Name": "ShipToName",
-            "Address": {
-              "AddressLine": "ShipToAddressLine",
-              "City": "Alpharetta",
-              "StateProvinceCode": "GA",
-              "PostalCode": "30005",
-              "CountryCode": "US"
-            }
-          },
-          "ShipFrom": {
-            "Name": "ShipFromName",
-            "Address": {
-              "AddressLine": "ShipFromAddressLine",
-              "City": "TIMONIUM",
-              "StateProvinceCode": "MD",
-              "PostalCode": "21093",
-              "CountryCode": "US"
-            }
-          },
-          "PaymentDetails": {
-            "ShipmentCharge": {
-              "Type": "01",
-              "BillShipper": {
-                "AccountNumber": "7E6Y36"
-              }
-            }
-          },
-          "Service": {
-            "Code": "03",
-            "Description": "Ground"
-          },
-          "NumOfPieces": "1",
-          "Package": {
-            "PackagingType": {
-              "Code": "02",
-              "Description": "Packaging"
-            },
-            "Dimensions": {
-              "UnitOfMeasurement": {
-                "Code": "IN",
-                "Description": "Inches"
-              },
-              "Length": "5",
-              "Width": "5",
-              "Height": "5"
-            },
-            "PackageWeight": {
-              "UnitOfMeasurement": {
-                "Code": "LBS",
-                "Description": "Pounds"
-              },
-              "Weight": "1"
-            }
-          },
-          "DeliveryTimeInformation": {
-            "PackageBillType": "03",
-            "Pickup": {
-              "Date": "20230101",
-              "Time": "1000"
-            }
-          }
-        }
-      }
-    }
+  "openAccountResponse": null,
+  "shipperNumber": "TESTAN",
+  "notifyTime": null,
+  "addressCandidate": null
 }
 ```
 
-- A successful Simple Rate response
+- A missing pickup address error response
 ```json
 {
-  "RateResponse": {
-    "Response": {
-      "ResponseStatus": {
-        "Code": "1",
-        "Description": "Success"
-      },
-      "Alert": [
-        {
-          "Code": "110971",
-          "Description": "Your invoice may vary from the displayed reference rates"
-        }
-      ],
-      "TransactionReference": {
-        "CustomerContext": "testing",
-        "TransactionIdentifier": "ciewssoasc2b9N16KDjmjl"
-      }
-    },
-    "RatedShipment": {
-      "Service": {
-        "Code": "03",
-        "Description": ""
-      },
-      "RatedShipmentAlert": {
-        "Code": "110971",
-        "Description": "Your invoice may vary from the displayed reference rates"
-      },
-      "BillingWeight": {
-        "UnitOfMeasurement": {
-          "Code": "LBS",
-          "Description": "Pounds"
-        },
-        "Weight": "0.0"
-      },
-      "TransportationCharges": {
-        "CurrencyCode": "USD",
-        "MonetaryValue": "9.45"
-      },
-      "BaseServiceCharge": {
-        "CurrencyCode": "USD",
-        "MonetaryValue": "0.00"
-      },
-      "ServiceOptionsCharges": {
-        "CurrencyCode": "USD",
-        "MonetaryValue": "0.00"
-      },
-      "TotalCharges": {
-        "CurrencyCode": "USD",
-        "MonetaryValue": "9.45"
-      },
-      "RatedPackage": {
-        "TransportationCharges": {
-          "CurrencyCode": "USD",
-          "MonetaryValue": "9.45"
-        },
-        "BaseServiceCharge": {
-          "CurrencyCode": "USD",
-          "MonetaryValue": "9.45"
-        },
-        "ServiceOptionsCharges": {
-          "CurrencyCode": "USD",
-          "MonetaryValue": "0.00"
-        },
-        "ItemizedCharges": {
-          "Code": "553",
-          "CurrencyCode": "USD",
-          "MonetaryValue": "0.00"
-        },
-        "TotalCharges": {
-          "CurrencyCode": "USD",
-          "MonetaryValue": "9.45"
-        },
-        "Weight": "0.7",
-        "BillingWeight": {
-          "UnitOfMeasurement": {
-            "Code": "LBS",
-            "Description": "Pounds"
-          },
-          "Weight": "0.0"
-        },
-        "SimpleRate": {
-          "Code": "XS"
-        }
-      }
+  "errors": [
+    {
+      "code": "100061",
+      "message": "Missing or Invalid Pickup Address."
     }
-  }
-}
-```
-
-- An invalid BillShipper.AccountNumber
-```json
-{
-  "response": {
-    "errors": [
-      {
-        "code": "111580",
-        "message": "Missing or Invalid account number for Payment Details."
-      }
-    ]
-  }
+  ]
 }
 ```
 

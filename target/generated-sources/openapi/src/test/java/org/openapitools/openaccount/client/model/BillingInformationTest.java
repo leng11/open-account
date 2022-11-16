@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.openaccount.client.model.CustomerPreferences;
-import org.openapitools.openaccount.client.model.EmailInformation;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

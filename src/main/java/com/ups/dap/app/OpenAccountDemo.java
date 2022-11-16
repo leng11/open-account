@@ -51,7 +51,7 @@ public class OpenAccountDemo implements CommandLineRunner {
 	
 	private void openAccountActivity(final String accessToken) {
 		// Prepare Shipper Account Request api access.
-		final ShipperAccountRequestApi shipperAccountRequestApi = initializeApi(restTemplate, appConfig.getRateBaseUrl(), accessToken);
+		final ShipperAccountRequestApi shipperAccountRequestApi = initializeApi(restTemplate, appConfig.getOpenAccountBaseUrl(), accessToken);
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 					
@@ -116,18 +116,16 @@ public class OpenAccountDemo implements CommandLineRunner {
 		printAddressCandidate(openRequestResponse.getAddressCandidate());
 	}
 	
-	private void printStatus(final CommonResponse response) {
+	void printStatus(final CommonResponse response) {
 		if(null != response) {
 			log.info("\t\tStatus: {}", response.getStatus());
 			
 			List<CommonResponseAdditionalInfoInner> responseInfo = response.getAdditionalInfo();
-			if(!responseInfo.isEmpty()) {
+			if(null != responseInfo && !responseInfo.isEmpty()) {
 				log.info("\t\tAdditionalInfo:");
-				responseInfo.forEach(info->{
-												log.info("\t\t\t{} {} {}", info.getInformationType(),
+				responseInfo.forEach(info->log.info("\t\t\t{} {} {}", info.getInformationType(),
 																			info.getCode(),
-																			info.getDescription());
-											});
+																			info.getDescription()));
 			}
 		}
 		
@@ -137,7 +135,7 @@ public class OpenAccountDemo implements CommandLineRunner {
 		log.info("\t\tShipNumber: {}", shipNumber);
 	}
 	
-	private void printAddressCandidate(final Address address) {
+	void printAddressCandidate(final Address address) {
 		if(null != address) {	
 			log.info("\t\tAddressCandidate:");
 			log.info("\t\t\taddressType: {}", address.getAddressType());

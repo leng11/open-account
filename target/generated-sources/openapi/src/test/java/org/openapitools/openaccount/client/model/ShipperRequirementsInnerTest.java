@@ -56,11 +56,11 @@ public class ShipperRequirementsInnerTest {
     }
 
     /**
-     * Test the property 'licensedInAllStates'
+     * Test the property 'licenseInAllStates'
      */
     @Test
-    public void licensedInAllStatesTest() {
-        // TODO: test licensedInAllStates
+    public void licenseInAllStatesTest() {
+        // TODO: test licenseInAllStates
     }
 
 }

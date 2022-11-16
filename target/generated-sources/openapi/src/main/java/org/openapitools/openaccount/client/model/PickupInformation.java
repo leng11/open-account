@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PickupInformation.JSON_PROPERTY_WEEKEND_DELIVERY_OPTIONS
 })
 @JsonTypeName("pickupInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.675426900-05:00[America/New_York]")
 public class PickupInformation {
   /**
    * 01 &#x3D; Regular Daily Pickup 02 &#x3D; SMART Pickup 07 &#x3D; Daily-On Route 08 &#x3D; No Scheduled Pickup 99 &#x3D; Day Specific Pickup 

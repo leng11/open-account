@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BusinessInformation.JSON_PROPERTY_IMPORT_BROKERAGE
 })
 @JsonTypeName("businessInformation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-14T11:32:27.678763700-05:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-11-16T16:23:57.675426900-05:00[America/New_York]")
 public class BusinessInformation {
   /**
    * 2000 &#x3D; Automotive 3000 &#x3D; High Tech 4000 &#x3D; Industrial Manufacturing &amp; Distribution 5000 &#x3D; Retail and Consumer Goods 6000 &#x3D; Professional Services 7000 &#x3D; Consumer Services 8000 &#x3D; Healthcare 9000 &#x3D; Government 9900 &#x3D; Other

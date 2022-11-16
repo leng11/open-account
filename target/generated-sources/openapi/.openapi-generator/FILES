@@ -19,7 +19,6 @@ docs/ContactName.md
 docs/ContactName1.md
 docs/CustomerAccountCharacteristics.md
 docs/CustomerPreferences.md
-docs/EmailInformation.md
 docs/EndUserInformation.md
 docs/ErrorResponseWrapper.md
 docs/Errors.md
@@ -74,7 +73,6 @@ src/main/java/org/openapitools/openaccount/client/model/ContactName.java
 src/main/java/org/openapitools/openaccount/client/model/ContactName1.java
 src/main/java/org/openapitools/openaccount/client/model/CustomerAccountCharacteristics.java
 src/main/java/org/openapitools/openaccount/client/model/CustomerPreferences.java
-src/main/java/org/openapitools/openaccount/client/model/EmailInformation.java
 src/main/java/org/openapitools/openaccount/client/model/EndUserInformation.java
 src/main/java/org/openapitools/openaccount/client/model/ErrorResponseWrapper.java
 src/main/java/org/openapitools/openaccount/client/model/Errors.java
